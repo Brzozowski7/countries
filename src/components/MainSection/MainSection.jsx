@@ -104,7 +104,7 @@ export default function MainSection() {
     if (searchedCountry) {
       fetchData();
     }
-  }, [searchedCountry]);
+  }, [searchedCountry, searchedBy]);
   useEffect(() => {
     sortCountries();
   }, [sortBy]);
