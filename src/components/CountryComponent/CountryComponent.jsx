@@ -20,9 +20,15 @@ export default function CountryComponent({
       </FlagContainer>
       <InformationContainer>
         <h2>{name}</h2>
-        <p>Population: {population}</p>
-        <p>Region: {region}</p>
-        <p>Capital: {capital}</p>
+        <p>
+          <b>Population:</b> {population}
+        </p>
+        <p>
+          <b>Region:</b> {region}
+        </p>
+        <p>
+          <b>Capital:</b> {capital}
+        </p>
       </InformationContainer>
     </CountryContainer>
   );

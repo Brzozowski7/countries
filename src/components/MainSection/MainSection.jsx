@@ -25,7 +25,6 @@ export default function MainSection() {
   };
   useEffect(() => {
     fetchData();
-    console.log("request");
   }, [searchedCountry]);
 
   return (

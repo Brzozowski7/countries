@@ -3,9 +3,15 @@ import { pallete } from "../../misc/pallete";
 
 export const CountryContainer = styled.div`
   width: 18rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
   background-color: ${(props) =>
     props.dark ? pallete.DarkBlue : pallete.White};
   color: ${(props) => (props.dark ? pallete.White : pallete.VeryDarkBlue)};
+  box-shadow: ${(props) =>
+    props.dark
+      ? `${pallete.DarkBlue} 0px 5px 15px`
+      : `${pallete.VeryDarkBlue} 0px 5px 15px`};
 `;
 export const FlagContainer = styled.div`
   width: 100%;

@@ -14,8 +14,12 @@ export const SearchBarContainer = styled.div`
   border-radius: 0.3rem;
   box-shadow: ${(props) =>
     props.dark
-      ? `${pallete.VeryLightGray} 0px 3px 3px`
+      ? `${pallete.DarkGray} 0px 3px 3px`
       : `${pallete.VeryDarkBlue} 0px 3px 3px`};
+
+  @media screen and (max-width: 960px) {
+    width: 90%;
+  }
 `;
 export const StyledInput = styled.input`
   width: 100%;
