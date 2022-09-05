@@ -10,7 +10,7 @@ export const SearchBarContainer = styled.div`
   background-color: ${(props) =>
     props.dark ? pallete.DarkBlue : pallete.White};
   color: ${(props) => (props.dark ? pallete.White : pallete.VeryDarkBlue)};
-  padding: 0.5rem 1rem;
+  padding: 1rem 2rem;
   border-radius: 0.3rem;
   box-shadow: ${(props) =>
     props.dark

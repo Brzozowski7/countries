@@ -5,5 +5,7 @@ export const Wrapper = styled.div`
   font-family: "Nunito Sans", sans-serif;
   width: 100vw;
   height: 100vh;
-  overflow-x:hidden;
+  overflow-x: hidden;
+  background-color: ${(props) =>
+    props.dark ? pallete.VeryDarkBlue : pallete.VeryLightGray};
 `;

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import PropTypes from "prop-types";
 import {
   CountryContainer,
   FlagContainer,
@@ -33,3 +34,10 @@ export default function CountryComponent({
     </CountryContainer>
   );
 }
+CountryComponent.propTypes = {
+  name: PropTypes.string,
+  region: PropTypes.string,
+  population: PropTypes.string,
+  capital: PropTypes.string,
+  flag: PropTypes.string,
+};

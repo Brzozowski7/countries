@@ -10,7 +10,7 @@ function App() {
 
   return (
     <DarkModeContext.Provider value={darkMode}>
-      <Wrapper>
+      <Wrapper dark={darkMode}>
         <Navbar setDarkMode={setDarkMode} />
         <MainSection />
       </Wrapper>

@@ -6,16 +6,21 @@ export const MainSectionContainer = styled.main`
   flex-direction: column;
   align-items: left;
   width: 100%;
-  height: 100%;
   padding: 2rem 5rem;
   background-color: ${(props) =>
-    props.dark ? pallete.VeryDarkBlueForText : pallete.VeryLightGray};
+    props.dark ? pallete.VeryDarkBlue : pallete.VeryLightGray};
   @media screen and (max-width: 960px) {
     align-items: center;
     padding: 2rem 0;
   }
 `;
-
+export const SearchByContainer = styled.div`
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};
+`;
 export const FoundCountriesContainer = styled.div`
   width: 100%;
   padding: 3rem 0;

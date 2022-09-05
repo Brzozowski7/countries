@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import PropTypes from "prop-types";
 import { NavbarContainer, ModeContainer } from "./Navbar.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
@@ -18,3 +19,7 @@ export default function Navbar({ setDarkMode }) {
     </NavbarContainer>
   );
 }
+
+Navbar.propTypes = {
+  setDarkMode: PropTypes.func.isRequired,
+};

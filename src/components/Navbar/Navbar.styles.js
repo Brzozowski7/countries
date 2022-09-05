@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pallete } from "../../misc/pallete";
 
-export const NavbarContainer = styled.nav`
+export const NavbarContainer = styled.header`
   width: 100%;
   height: 6rem;
   background-color: ${(props) =>
@@ -25,7 +25,7 @@ export const NavbarContainer = styled.nav`
     }
   }
 `;
-export const ModeContainer = styled.p`
+export const ModeContainer = styled.nav`
   user-select: none;
   display: flex;
   flex-direction: row;
