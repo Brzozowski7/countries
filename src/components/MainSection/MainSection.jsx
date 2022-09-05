@@ -135,7 +135,6 @@ export default function MainSection() {
       </SearchByContainer>
       <p>Number of matches: {countriesArr.length}</p>
       <FoundCountriesContainer>
-
         {countriesArr.map((item) => {
           return (
             <CountryComponent

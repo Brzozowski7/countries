@@ -20,6 +20,11 @@ export const SearchByContainer = styled.div`
   flex-direction: row;
   gap: 0.5rem;
   color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};
+  select {
+    background-color: ${(props) =>
+      props.dark ? pallete.DarkBlue : pallete.White};
+    color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};
+  }
 `;
 export const FoundCountriesContainer = styled.div`
   width: 100%;
