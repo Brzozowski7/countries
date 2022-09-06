@@ -4,9 +4,10 @@ import {
   CountryContainer,
   FlagContainer,
   InformationContainer,
-} from "./CountryComponent.styles";
+} from "./CountryCard.styles";
+import { addCommas } from "./CountryCard.utils";
 import { DarkModeContext } from "../../App/App";
-export default function CountryComponent({
+export default function CountryCard({
   name,
   region,
   population,
@@ -22,7 +23,7 @@ export default function CountryComponent({
       <InformationContainer>
         <h2>{name}</h2>
         <p>
-          <b>Population:</b> {population}
+          <b>Population:</b> {addCommas(population)}
         </p>
         <p>
           <b>Region:</b> {region}
@@ -34,7 +35,7 @@ export default function CountryComponent({
     </CountryContainer>
   );
 }
-CountryComponent.propTypes = {
+CountryCard.propTypes = {
   name: PropTypes.string,
   region: PropTypes.string,
   population: PropTypes.number,

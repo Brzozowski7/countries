@@ -7,7 +7,7 @@ import {
 } from "./MainSection.styles";
 import { find, shuffleCountries } from "./MainSection.utils";
 import { DarkModeContext } from "../../App/App";
-import CountryComponent from "../CountryComponent";
+import CountryCard from "../CountryCard";
 import { sortByList, sortBySwitchList } from "../../misc/sortByList";
 
 export default function MainSection() {
@@ -129,7 +129,7 @@ export default function MainSection() {
           .filter((country) => (searched ? find(country, searched) : country))
           .map((item) => {
             return (
-              <CountryComponent
+              <CountryCard
                 key={item.name}
                 flag={item.flags.png}
                 name={item.name}
