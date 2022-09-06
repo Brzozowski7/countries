@@ -94,7 +94,7 @@ export default function MainSection() {
   };
   const fetchData = async () => {
     const response = await fetch(
-      `https://restcountries.com/v2/all?fields=name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones`
+      `https://restcountries.com/v2/all?fields=name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
     );
     if (response.ok) {
       const data = await response.json();

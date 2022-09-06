@@ -6,7 +6,10 @@ export function find(obj, keyword) {
       if (typeof value === "object" && value !== null) {
         iterate(value);
       } else {
-        if (("" + value).indexOf(keyword) > -1) {
+        if (
+          ("" + value.toString().toLowerCase()).indexOf(keyword.toLowerCase()) >
+          -1
+        ) {
           found = true;
         }
       }
