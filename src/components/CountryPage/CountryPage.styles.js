@@ -13,10 +13,58 @@ export const CountryPageWrapper = styled.main`
   background-color: ${(props) =>
     props.dark ? pallete.VeryDarkBlue : pallete.VeryLightGray};
   @media screen and (max-width: 960px) {
-    gap: 3rem;
+    gap: 2rem;
     padding: 2rem;
   }
 `;
+export const FlagContainer = styled.div`
+  img {
+    height: 20rem;
+    width: 35rem;
+  }
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    img {
+      height: 15rem;
+      width: 100%;
+    }
+  }
+`;
+
+export const CountryInformationContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  padding: 5rem 0;
+  @media screen and (max-width: 960px) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0;
+  }
+`;
+export const Details = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  h1 {
+    padding: 1rem 0;
+  }
+  p {
+    padding: 0.5rem 0;
+  }
+`;
+
+export const BorderCountriesContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+`;
+
 const BaseLink = styled(Link)`
   background-color: ${(props) =>
     props.dark ? pallete.DarkBlue : pallete.White};
@@ -36,19 +84,6 @@ const BaseLink = styled(Link)`
 `;
 export const StyledLink = styled(BaseLink)`
   width: 8rem;
-`;
-
-export const CountryInformationContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
-
-export const BorderCountriesContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
 `;
 
 export const BorderCountryLink = styled(BaseLink)`

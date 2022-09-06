@@ -22,4 +22,5 @@ export default function Navbar({ setDarkMode }) {
 
 Navbar.propTypes = {
   setDarkMode: PropTypes.func.isRequired,
+  darkMode: PropTypes.bool,
 };

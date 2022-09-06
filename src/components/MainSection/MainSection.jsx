@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import PropTypes from "prop-types";
 import SearchBar from "../SearchBar";
 import {
   MainSectionContainer,
@@ -147,3 +148,6 @@ export default function MainSection() {
     </MainSectionContainer>
   );
 }
+MainSection.propTypes = {
+  darkMode: PropTypes.bool,
+};

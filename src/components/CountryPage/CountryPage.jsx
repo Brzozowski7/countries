@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -8,6 +9,8 @@ import {
   CountryInformationContainer,
   BorderCountriesContainer,
   BorderCountryLink,
+  FlagContainer,
+  Details,
 } from "./CountryPage.styles";
 import { addCommas } from "./CountryPage.utils";
 import { DarkModeContext } from "../../App/App";
@@ -47,58 +50,67 @@ export default function CountryPage() {
         Back
       </StyledLink>
       {country && (
-        <CountryInformationContainer>
-          <img
-            src={country[0].flags.png}
-            alt={`${country[0].name.common} flag`}
-          />
-          <h2>{country[0].name.common}</h2>
-          <div>
-            <p>
-              <b>Native Name:</b> {country[0].name.official}
-            </p>
-            <p>
-              <b>Population:</b> {addCommas(country[0].population)}
-            </p>
-            <p>
-              <b>Region:</b> {country[0].region}
-            </p>
-            <p>
-              <b>Sub Region:</b> {country[0].subregion}
-            </p>
-            <p>
-              <b>Capital: </b> {country[0].capital}
-            </p>
-          </div>
-          <div>
-            <p>
-              <b>Top Level Domain: </b> {country[0].tld}
-            </p>
-            <p>
-              <b>Currencies:</b> {Object.keys(country[0].currencies).join(", ")}
-            </p>
-            <p>
-              <b>Languages:</b> {Object.values(country[0].languages).join(", ")}
-            </p>
-          </div>
-          <div>
-            <b>Border countries:</b>
-            <BorderCountriesContainer>
-              {country[0].borders?.map((borderCountry) => {
-                return (
-                  <BorderCountryLink
-                    dark={darkMode}
-                    to={`/country/${borderCountry}`}
-                    key={borderCountry}
-                  >
-                    {borderCountry}
-                  </BorderCountryLink>
-                );
-              })}
-            </BorderCountriesContainer>
-          </div>
-        </CountryInformationContainer>
+        <>
+          <CountryInformationContainer>
+            <FlagContainer>
+              <img
+                src={country[0].flags.png}
+                alt={`${country[0].name.common} flag`}
+              />
+            </FlagContainer>
+            <Details>
+              <div>
+                <h1>{country[0].name.common}</h1>
+                <p>
+                  <b>Native Name:</b> {country[0].name.official}
+                </p>
+                <p>
+                  <b>Population:</b> {addCommas(country[0].population)}
+                </p>
+                <p>
+                  <b>Region:</b> {country[0].region}
+                </p>
+                <p>
+                  <b>Sub Region:</b> {country[0].subregion}
+                </p>
+                <p>
+                  <b>Capital: </b> {country[0].capital}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <b>Top Level Domain: </b> {country[0].tld}
+                </p>
+                <p>
+                  <b>Currencies:</b>{" "}
+                  {Object.keys(country[0].currencies).join(", ")}
+                </p>
+                <p>
+                  <b>Languages:</b>{" "}
+                  {Object.values(country[0].languages).join(", ")}
+                </p>
+              </div>
+            </Details>
+          </CountryInformationContainer>
+          <b>Border countries:</b>
+          <BorderCountriesContainer>
+            {country[0].borders?.map((borderCountry) => {
+              return (
+                <BorderCountryLink
+                  dark={darkMode}
+                  to={`/country/${borderCountry}`}
+                  key={borderCountry}
+                >
+                  {borderCountry}
+                </BorderCountryLink>
+              );
+            })}
+          </BorderCountriesContainer>
+        </>
       )}
     </CountryPageWrapper>
   );
 }
+CountryPage.propTypes = {
+  darkMode: PropTypes.bool,
+};

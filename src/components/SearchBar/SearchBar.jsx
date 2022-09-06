@@ -25,4 +25,5 @@ export default function SearchBar({ setSearched }) {
 }
 SearchBar.propTypes = {
   setSearched: PropTypes.func.isRequired,
+  darkMode: PropTypes.bool,
 };

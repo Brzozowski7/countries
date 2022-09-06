@@ -41,4 +41,5 @@ CountryCard.propTypes = {
   population: PropTypes.number,
   capital: PropTypes.string,
   flag: PropTypes.string,
+  darkMode: PropTypes.bool,
 };
