@@ -4,6 +4,7 @@ import {
   MainSectionContainer,
   SearchByContainer,
   FoundCountriesContainer,
+  StyledLink,
 } from "./MainSection.styles";
 import { find, shuffleCountries } from "./MainSection.utils";
 import { DarkModeContext } from "../../App/App";
@@ -63,17 +64,19 @@ export default function MainSection() {
         break;
       case sortBySwitchList.ByAreaIncreasing:
         setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.area < b.area ? -1 : a.area > b.area ? 1 : 0
-          )
+          prev
+            .filter((item) => item.area)
+            .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0))
         );
+        //removing countries on which we don't have area information
         break;
       case sortBySwitchList.ByAreaDecreasing:
         setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.area < b.area ? 1 : a.area > b.area ? -1 : 0
-          )
+          prev
+            .filter((item) => item.area)
+            .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0))
         );
+        //removing countries on which we don't have area information
         break;
       default:
         return;
@@ -129,14 +132,16 @@ export default function MainSection() {
           .filter((country) => (searched ? find(country, searched) : country))
           .map((item) => {
             return (
-              <CountryCard
-                key={item.name}
-                flag={item.flags.png}
-                name={item.name}
-                population={item.population}
-                region={item.region}
-                capital={item.capital}
-              />
+              <StyledLink to={"/country/" + item.name}>
+                <CountryCard
+                  key={item.name}
+                  flag={item.flags.png}
+                  name={item.name}
+                  population={item.population}
+                  region={item.region}
+                  capital={item.capital}
+                />
+              </StyledLink>
             );
           })}
       </FoundCountriesContainer>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pallete } from "../../misc/pallete";
-
+import { Link } from "react-router-dom";
 export const MainSectionContainer = styled.main`
   display: flex;
   flex-direction: column;
@@ -37,4 +37,8 @@ export const FoundCountriesContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

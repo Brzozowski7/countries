@@ -1,6 +1,8 @@
 import { useState, createContext } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MainSection from "../components/MainSection/MainSection";
+import CountryPage from "../components/CountryPage";
 import { Wrapper } from "./App.styles";
 
 export const DarkModeContext = createContext();
@@ -10,10 +12,18 @@ function App() {
 
   return (
     <DarkModeContext.Provider value={darkMode}>
-      <Wrapper dark={darkMode}>
-        <Navbar setDarkMode={setDarkMode} />
-        <MainSection />
-      </Wrapper>
+      <Router>
+        <Wrapper dark={darkMode}>
+          <Navbar setDarkMode={setDarkMode} />
+          <Routes>
+            <Route path="/" element={<MainSection />}></Route>
+            <Route
+              path="/country/:countryName"
+              element={<CountryPage />}
+            ></Route>
+          </Routes>
+        </Wrapper>
+      </Router>
     </DarkModeContext.Provider>
   );
 }
