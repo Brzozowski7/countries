@@ -62,14 +62,10 @@ export const Details = styled.div`
   }
 `;
 
-export const BorderCountriesContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-`;
 
-const BaseLink = styled(Link)`
+
+export const StyledLink = styled(Link)`
+  width: 8rem;
   background-color: ${(props) =>
     props.dark ? pallete.DarkBlue : pallete.White};
   color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};
@@ -85,11 +81,4 @@ const BaseLink = styled(Link)`
     props.dark
       ? `${pallete.DarkGray} 0px 3px 3px`
       : `${pallete.VeryDarkBlue} 0px 3px 3px`};
-`;
-export const StyledLink = styled(BaseLink)`
-  width: 8rem;
-`;
-
-export const BorderCountryLink = styled(BaseLink)`
-  width: 4rem;
 `;

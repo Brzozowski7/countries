@@ -7,13 +7,12 @@ import {
   CountryPageWrapper,
   StyledLink,
   CountryInformationContainer,
-  BorderCountriesContainer,
-  BorderCountryLink,
   FlagContainer,
   Details,
 } from "./CountryPage.styles";
 import { addCommas } from "./CountryPage.utils";
 import { DarkModeContext } from "../../App/App";
+import BorderCountries from "../BorderCountries";
 
 export default function CountryPage() {
   const darkMode = useContext(DarkModeContext);
@@ -92,20 +91,7 @@ export default function CountryPage() {
               </div>
             </Details>
           </CountryInformationContainer>
-          <b>Border countries:</b>
-          <BorderCountriesContainer>
-            {country[0].borders?.map((borderCountry) => {
-              return (
-                <BorderCountryLink
-                  dark={darkMode}
-                  to={`/country/${borderCountry}`}
-                  key={borderCountry}
-                >
-                  {borderCountry}
-                </BorderCountryLink>
-              );
-            })}
-          </BorderCountriesContainer>
+          <BorderCountries borderCountries={country[0].borders} />
         </>
       )}
     </CountryPageWrapper>
