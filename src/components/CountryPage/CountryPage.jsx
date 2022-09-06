@@ -11,6 +11,7 @@ import {
 } from "./CountryPage.styles";
 import { addCommas } from "./CountryPage.utils";
 import { DarkModeContext } from "../../App/App";
+
 export default function CountryPage() {
   const darkMode = useContext(DarkModeContext);
   const [country, setCountry] = useState();
@@ -38,6 +39,7 @@ export default function CountryPage() {
       fetchSpecificCountry();
     }
   }, [params.countryCode]);
+
   return (
     <CountryPageWrapper dark={darkMode}>
       <StyledLink dark={darkMode} to="/">
@@ -46,7 +48,10 @@ export default function CountryPage() {
       </StyledLink>
       {country && (
         <CountryInformationContainer>
-          <img src={country[0].flags.png} alt={`${country[0].name.common} flag`} />
+          <img
+            src={country[0].flags.png}
+            alt={`${country[0].name.common} flag`}
+          />
           <h2>{country[0].name.common}</h2>
           <div>
             <p>

@@ -16,8 +16,8 @@ export const CountryContainer = styled.div`
       : `${pallete.VeryDarkBlue} 0px 5px 15px`};
   &:hover {
     cursor: pointer;
-    scale: 1.05;
-    transition: 0.5s ease-in-out;
+    scale: 1.02;
+    transition: 0.3s ease-in-out;
   }
 `;
 export const FlagContainer = styled.div`

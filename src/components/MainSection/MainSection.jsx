@@ -132,9 +132,8 @@ export default function MainSection() {
           .filter((country) => (searched ? find(country, searched) : country))
           .map((item) => {
             return (
-              <StyledLink to={"/country/" + item.alpha3Code}>
+              <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
                 <CountryCard
-                  key={item.name}
                   flag={item.flags.png}
                   name={item.name}
                   population={item.population}
