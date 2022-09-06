@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import PropTypes from "prop-types";
-import { NavbarContainer, ModeContainer } from "./Navbar.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { NavbarContainer, ModeContainer } from "./Navbar.styles";
 import { DarkModeContext } from "../../App/App";
 export default function Navbar({ setDarkMode }) {
   const darkMode = useContext(DarkModeContext);

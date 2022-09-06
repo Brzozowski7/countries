@@ -19,8 +19,8 @@ export const CountryPageWrapper = styled.main`
 `;
 export const FlagContainer = styled.div`
   img {
-    height: 20rem;
-    width: 35rem;
+    height: 18rem;
+    width: 30rem;
   }
   @media screen and (max-width: 960px) {
     width: 100%;
@@ -55,6 +55,10 @@ export const Details = styled.div`
   }
   p {
     padding: 0.5rem 0;
+  }
+  @media screen and (max-width: 960px) {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
