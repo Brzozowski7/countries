@@ -42,7 +42,7 @@ export default function CountryPage() {
     <CountryPageWrapper dark={darkMode}>
       <StyledLink dark={darkMode} to="/">
         <FontAwesomeIcon icon={faArrowLeft} />
-        {country.name.common}
+        Back
       </StyledLink>
       {country?.map((item) => {
         return (
