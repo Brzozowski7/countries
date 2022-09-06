@@ -1,20 +1,19 @@
 import { useState, useContext, useEffect } from "react";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../SearchBar";
 import {
   MainSectionContainer,
   SearchByContainer,
   FoundCountriesContainer,
 } from "./MainSection.styles";
+import { find, shuffleCountries } from "./MainSection.utils";
 import { DarkModeContext } from "../../App/App";
-import CountryComponent from "../CountryComponent/CountryComponent";
-import { filters } from "../../misc/filters";
+import CountryComponent from "../CountryComponent";
 import { sortByList, sortBySwitchList } from "../../misc/sortByList";
 
 export default function MainSection() {
   const darkMode = useContext(DarkModeContext);
-  const [searchedBy, setSearchedBy] = useState("name");
   const [sortBy, setSortBy] = useState("");
-  const [searchedCountry, setSearchedCountry] = useState("");
+  const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
 
   const sortCountries = () => {
@@ -22,22 +21,14 @@ export default function MainSection() {
       case sortBySwitchList.Alphabetically:
         setCountriesArr((prev) =>
           [...prev].sort((a, b) =>
-            a.name.common < b.name.common
-              ? -1
-              : a.name.common > b.name.common
-              ? 1
-              : 0
+            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
           )
         );
         break;
       case sortBySwitchList.AlphabeticallyReversed:
         setCountriesArr((prev) =>
           [...prev].sort((a, b) =>
-            a.name.common < b.name.common
-              ? 1
-              : a.name.common > b.name.common
-              ? -1
-              : 0
+            a.name < b.name ? 1 : a.name > b.name ? -1 : 0
           )
         );
         break;
@@ -70,62 +61,62 @@ export default function MainSection() {
           )
         );
         break;
+      case sortBySwitchList.ByAreaIncreasing:
+        setCountriesArr((prev) =>
+          [...prev].sort((a, b) =>
+            a.area < b.area ? -1 : a.area > b.area ? 1 : 0
+          )
+        );
+        break;
+      case sortBySwitchList.ByAreaDecreasing:
+        setCountriesArr((prev) =>
+          [...prev].sort((a, b) =>
+            a.area < b.area ? 1 : a.area > b.area ? -1 : 0
+          )
+        );
+        break;
       default:
         return;
     }
   };
-  const changeSearchBy = (e) => {
-    setSearchedBy(e.target.value);
-  };
+
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
-  const fetchWelcomeCountries = async () => {
-    const response = await fetch(`https://restcountries.com/v3.1/all`);
-    if (response.ok) {
-      const data = await response.json();
+  const checkLocalStorage = () => {
+    const localStorageItem = localStorage.getItem(`countryList`);
+    if (localStorageItem) {
+      const data = JSON.parse(localStorageItem);
+      shuffleCountries(data);
       setCountriesArr(data);
-    }
+      return true;
+    } else return false;
   };
   const fetchData = async () => {
     const response = await fetch(
-      `https://restcountries.com/v3.1/${searchedBy}/${searchedCountry}`
+      `https://restcountries.com/v2/all?fields=name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones`
     );
     if (response.ok) {
       const data = await response.json();
+      shuffleCountries(data);
       setCountriesArr(data);
+      localStorage.setItem("countryList", JSON.stringify(data));
     }
   };
   useEffect(() => {
-    fetchWelcomeCountries();
+    if (!checkLocalStorage()) {
+      fetchData();
+    } else return;
   }, []);
 
-  useEffect(() => {
-    if (searchedCountry) {
-      fetchData();
-    }
-  }, [searchedCountry, searchedBy]);
   useEffect(() => {
     sortCountries();
   }, [sortBy]);
 
   return (
     <MainSectionContainer dark={darkMode}>
-      <SearchBar
-        setSearchedCountry={setSearchedCountry}
-        searchedCountry={searchedCountry}
-      />
+      <SearchBar setSearched={setSearched} searchedCountry={searched} />
       <SearchByContainer dark={darkMode}>
-        <p>Search by:</p>
-        <select onChange={(e) => changeSearchBy(e)}>
-          {filters.map((item, index) => {
-            return (
-              <option key={index} value={item.value}>
-                {item.name}
-              </option>
-            );
-          })}
-        </select>
         <p>Sort:</p>
         <select onChange={(e) => changeSortBy(e)}>
           {sortByList.map((item, index) => {
@@ -133,20 +124,21 @@ export default function MainSection() {
           })}
         </select>
       </SearchByContainer>
-      <p>Number of matches: {countriesArr.length}</p>
       <FoundCountriesContainer>
-        {countriesArr.map((item) => {
-          return (
-            <CountryComponent
-              key={item.name.common}
-              flag={item.flags.png}
-              name={item.name.common}
-              population={item.population}
-              region={item.region}
-              capital={item.capital}
-            />
-          );
-        })}
+        {countriesArr
+          .filter((country) => (searched ? find(country, searched) : country))
+          .map((item) => {
+            return (
+              <CountryComponent
+                key={item.name}
+                flag={item.flags.png}
+                name={item.name}
+                population={item.population}
+                region={item.region}
+                capital={item.capital}
+              />
+            );
+          })}
       </FoundCountriesContainer>
     </MainSectionContainer>
   );

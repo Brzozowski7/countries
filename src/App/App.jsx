@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import Navbar from "../components/Navbar/Navbar";
+import Navbar from "../components/Navbar";
 import MainSection from "../components/MainSection/MainSection";
 import { Wrapper } from "./App.styles";
 

@@ -4,11 +4,11 @@ import { SearchBarContainer, StyledInput } from "./SearchBar.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { DarkModeContext } from "../../App/App";
-export default function SearchBar({ setSearchedCountry }) {
+export default function SearchBar({ setSearched }) {
   const darkMode = useContext(DarkModeContext);
 
   const handleChange = (e) => {
-    setSearchedCountry(e.target.value);
+    setSearched(e.target.value);
   };
 
   return (
@@ -24,5 +24,5 @@ export default function SearchBar({ setSearchedCountry }) {
   );
 }
 SearchBar.propTypes = {
-  setSearchedCountry: PropTypes.func.isRequired,
+  setSearched: PropTypes.func.isRequired,
 };

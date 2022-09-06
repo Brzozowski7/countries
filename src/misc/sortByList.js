@@ -1,5 +1,8 @@
 const sortByList = [
   {
+    name: "None",
+  },
+  {
     name: "Alphabetically",
   },
   {
@@ -14,6 +17,12 @@ const sortByList = [
   {
     name: "By regions",
   },
+  {
+    name: "By area (increasing)",
+  },
+  {
+    name: "By area (decreasing)",
+  },
 ];
 const sortBySwitchList = {
   Alphabetically: "Alphabetically",
@@ -21,5 +30,7 @@ const sortBySwitchList = {
   ByPopulationIncreasing: "By population (increasing)",
   ByPopulationDecreasing: "By population (decreasing)",
   ByRegions: "By regions",
+  ByAreaIncreasing: "By area (increasing)",
+  ByAreaDecreasing: "By area (decreasing)",
 };
 export { sortByList, sortBySwitchList };

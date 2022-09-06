@@ -37,7 +37,7 @@ export default function CountryComponent({
 CountryComponent.propTypes = {
   name: PropTypes.string,
   region: PropTypes.string,
-  population: PropTypes.string,
+  population: PropTypes.number,
   capital: PropTypes.string,
   flag: PropTypes.string,
 };
