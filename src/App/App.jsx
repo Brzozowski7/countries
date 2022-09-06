@@ -18,7 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainSection />}></Route>
             <Route
-              path="/country/:countryName"
+              path="/country/:countryCode"
               element={<CountryPage />}
             ></Route>
           </Routes>

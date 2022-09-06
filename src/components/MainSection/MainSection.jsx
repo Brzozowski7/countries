@@ -97,7 +97,7 @@ export default function MainSection() {
   };
   const fetchData = async () => {
     const response = await fetch(
-      `https://restcountries.com/v2/all?fields=name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
+      `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
     );
     if (response.ok) {
       const data = await response.json();
@@ -132,7 +132,7 @@ export default function MainSection() {
           .filter((country) => (searched ? find(country, searched) : country))
           .map((item) => {
             return (
-              <StyledLink to={"/country/" + item.name}>
+              <StyledLink to={"/country/" + item.alpha3Code}>
                 <CountryCard
                   key={item.name}
                   flag={item.flags.png}
