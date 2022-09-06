@@ -44,58 +44,56 @@ export default function CountryPage() {
         <FontAwesomeIcon icon={faArrowLeft} />
         Back
       </StyledLink>
-      {country?.map((item) => {
-        return (
-          <CountryInformationContainer key={item.name.common}>
-            <img src={item.flags.png} alt={`${item.name} flag`} />
-            <h2>{item.name.common}</h2>
-            <div>
-              <p>
-                <b>Native Name:</b> {item.name.official}
-              </p>
-              <p>
-                <b>Population:</b> {addCommas(item.population)}
-              </p>
-              <p>
-                <b>Region:</b> {item.region}
-              </p>
-              <p>
-                <b>Sub Region:</b> {item.subregion}
-              </p>
-              <p>
-                <b>Capital: </b> {item.capital}
-              </p>
-            </div>
-            <div>
-              <p>
-                <b>Top Level Domain: </b> {item.tld}
-              </p>
-              <p>
-                <b>Currencies:</b> {Object.keys(item.currencies).join(", ")}
-              </p>
-              <p>
-                <b>Languages:</b> {Object.values(item.languages).join(", ")}
-              </p>
-            </div>
-            <div>
-              <b>Border countries:</b>
-              <BorderCountriesContainer>
-                {item.borders?.map((borderCountry) => {
-                  return (
-                    <BorderCountryLink
-                      dark={darkMode}
-                      to={`/country/${borderCountry}`}
-                      key={borderCountry}
-                    >
-                      {borderCountry}
-                    </BorderCountryLink>
-                  );
-                })}
-              </BorderCountriesContainer>
-            </div>
-          </CountryInformationContainer>
-        );
-      })}
+      {country && (
+        <CountryInformationContainer>
+          <img src={country[0].flags.png} alt={`${country[0].name.common} flag`} />
+          <h2>{country[0].name.common}</h2>
+          <div>
+            <p>
+              <b>Native Name:</b> {country[0].name.official}
+            </p>
+            <p>
+              <b>Population:</b> {addCommas(country[0].population)}
+            </p>
+            <p>
+              <b>Region:</b> {country[0].region}
+            </p>
+            <p>
+              <b>Sub Region:</b> {country[0].subregion}
+            </p>
+            <p>
+              <b>Capital: </b> {country[0].capital}
+            </p>
+          </div>
+          <div>
+            <p>
+              <b>Top Level Domain: </b> {country[0].tld}
+            </p>
+            <p>
+              <b>Currencies:</b> {Object.keys(country[0].currencies).join(", ")}
+            </p>
+            <p>
+              <b>Languages:</b> {Object.values(country[0].languages).join(", ")}
+            </p>
+          </div>
+          <div>
+            <b>Border countries:</b>
+            <BorderCountriesContainer>
+              {country[0].borders?.map((borderCountry) => {
+                return (
+                  <BorderCountryLink
+                    dark={darkMode}
+                    to={`/country/${borderCountry}`}
+                    key={borderCountry}
+                  >
+                    {borderCountry}
+                  </BorderCountryLink>
+                );
+              })}
+            </BorderCountriesContainer>
+          </div>
+        </CountryInformationContainer>
+      )}
     </CountryPageWrapper>
   );
 }
