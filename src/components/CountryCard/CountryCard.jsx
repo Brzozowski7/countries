@@ -6,7 +6,7 @@ import {
   InformationContainer,
 } from "./CountryCard.styles";
 import { addCommas } from "./CountryCard.utils";
-import { DarkModeContext } from "../../App/App";
+import { isDarkModeContext } from "../../App/App";
 export default function CountryCard({
   name,
   region,
@@ -14,9 +14,9 @@ export default function CountryCard({
   capital,
   flag,
 }) {
-  const darkMode = useContext(DarkModeContext);
+  const isDarkMode = useContext(isDarkModeContext);
   return (
-    <CountryContainer dark={darkMode}>
+    <CountryContainer dark={isDarkMode}>
       <FlagContainer>
         <img src={flag} alt={`${name} flag`} />
       </FlagContainer>
@@ -41,5 +41,5 @@ CountryCard.propTypes = {
   population: PropTypes.number,
   capital: PropTypes.string,
   flag: PropTypes.string,
-  darkMode: PropTypes.bool,
+  isDarkMode: PropTypes.bool,
 };

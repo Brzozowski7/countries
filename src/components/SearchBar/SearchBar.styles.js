@@ -32,3 +32,8 @@ export const StyledInput = styled.input`
     outline: none;
   }
 `;
+export const XIconContainer = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;

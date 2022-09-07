@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { DarkModeContext } from "../../App/App";
+import PropTypes from "prop-types";
+import { isDarkModeContext } from "../../App/App";
 import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
 export default function BorderCountries({ borderCountries }) {
-  const darkMode = useContext(DarkModeContext);
+  const isDarkMode = useContext(isDarkModeContext);
   const [fullNames, setFullNames] = useState([]);
   const fetchBorderCountriesNames = async () => {
     const response = await fetch(
@@ -25,7 +26,7 @@ export default function BorderCountries({ borderCountries }) {
       {fullNames?.map((item) => {
         return (
           <BorderCountryLink
-            dark={darkMode}
+            dark={isDarkMode}
             to={`/country/${item.alpha3Code}`}
             key={item.alpha3Code}
           >
@@ -36,3 +37,7 @@ export default function BorderCountries({ borderCountries }) {
     </BorderCountriesContainer>
   );
 }
+BorderCountries.propTypes = {
+  borderCountries: PropTypes.array,
+  isDarkMode: PropTypes.bool,
+};

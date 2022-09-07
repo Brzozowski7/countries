@@ -45,6 +45,10 @@ export const CountryInformationContainer = styled.div`
     padding: 0;
   }
 `;
+export const NameAndDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 export const Details = styled.div`
   display: flex;
   flex-direction: row;
@@ -61,8 +65,6 @@ export const Details = styled.div`
     align-items: flex-start;
   }
 `;
-
-
 
 export const StyledLink = styled(Link)`
   width: 8rem;

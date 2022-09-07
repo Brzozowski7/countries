@@ -8,14 +8,15 @@ import {
   StyledLink,
   CountryInformationContainer,
   FlagContainer,
+  NameAndDetails,
   Details,
 } from "./CountryPage.styles";
 import { addCommas } from "./CountryPage.utils";
-import { DarkModeContext } from "../../App/App";
+import { isDarkModeContext } from "../../App/App";
 import BorderCountries from "../BorderCountries";
 
 export default function CountryPage() {
-  const darkMode = useContext(DarkModeContext);
+  const isDarkMode = useContext(isDarkModeContext);
   const [country, setCountry] = useState();
   const params = useParams();
   const checkLocalStorage = () => {
@@ -43,8 +44,8 @@ export default function CountryPage() {
   }, [params.countryCode]);
 
   return (
-    <CountryPageWrapper dark={darkMode}>
-      <StyledLink dark={darkMode} to="/">
+    <CountryPageWrapper dark={isDarkMode}>
+      <StyledLink dark={isDarkMode} to="/">
         <FontAwesomeIcon icon={faArrowLeft} />
         Back
       </StyledLink>
@@ -57,39 +58,58 @@ export default function CountryPage() {
                 alt={`${country[0].name.common} flag`}
               />
             </FlagContainer>
-            <Details>
-              <div>
-                <h1>{country[0].name.common}</h1>
-                <p>
-                  <b>Native Name:</b> {country[0].name.official}
-                </p>
-                <p>
-                  <b>Population:</b> {addCommas(country[0].population)}
-                </p>
-                <p>
-                  <b>Region:</b> {country[0].region}
-                </p>
-                <p>
-                  <b>Sub Region:</b> {country[0].subregion}
-                </p>
-                <p>
-                  <b>Capital: </b> {country[0].capital}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <b>Top Level Domain: </b> {country[0].tld}
-                </p>
-                <p>
-                  <b>Currencies:</b>{" "}
-                  {Object.keys(country[0].currencies).join(", ")}
-                </p>
-                <p>
-                  <b>Languages:</b>{" "}
-                  {Object.values(country[0].languages).join(", ")}
-                </p>
-              </div>
-            </Details>
+            <NameAndDetails>
+              <h1>{country[0].name.common}</h1>
+              <Details>
+                <div>
+                  <p>
+                    <b>Native Name:</b> {country[0].name.official}
+                  </p>
+                  <p>
+                    <b>Population:</b> {addCommas(country[0].population)}
+                  </p>
+                  <p>
+                    <b>Region:</b> {country[0].region}
+                  </p>
+                  <p>
+                    <b>Sub Region:</b> {country[0].subregion}
+                  </p>
+                  <p>
+                    <b>Capital: </b> {country[0].capital}
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <b>Top Level Domain: </b> {country[0].tld}
+                  </p>
+                  <p>
+                    <b>Currencies:</b>{" "}
+                    {Object.keys(country[0].currencies).join(", ")}
+                  </p>
+                  <p>
+                    <b>Languages:</b>{" "}
+                    {Object.values(country[0].languages).join(", ")}
+                  </p>
+                  <p>
+                    <b>Traffic:</b> {country[0].car.side}-handed
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <b>Lat:</b> {country[0].latlng[0]}&#176;
+                  </p>
+                  <p>
+                    <b>Long:</b> {country[0].latlng[1]}&#176;
+                  </p>
+                  <p>
+                    <b>Area:</b> {country[0].area} km&sup2;
+                  </p>
+                  <p>
+                    <b>Land locked:</b> {country[0].landlocked ? "Yes" : "No"}
+                  </p>
+                </div>
+              </Details>
+            </NameAndDetails>
           </CountryInformationContainer>
           <BorderCountries borderCountries={country[0].borders} />
         </>
@@ -98,5 +118,5 @@ export default function CountryPage() {
   );
 }
 CountryPage.propTypes = {
-  darkMode: PropTypes.bool,
+  isDarkMode: PropTypes.bool,
 };

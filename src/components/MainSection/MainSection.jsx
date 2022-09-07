@@ -7,13 +7,17 @@ import {
   FoundCountriesContainer,
   StyledLink,
 } from "./MainSection.styles";
-import { find, shuffleCountries } from "./MainSection.utils";
-import { DarkModeContext } from "../../App/App";
+import {
+  find,
+  shuffleCountries,
+  rememberSearchAndSortSettings,
+} from "./MainSection.utils";
+import { isDarkModeContext } from "../../App/App";
 import CountryCard from "../CountryCard";
 import { sortByList, sortBySwitchList } from "../../misc/sortByList";
 
 export default function MainSection() {
-  const darkMode = useContext(DarkModeContext);
+  const isDarkMode = useContext(isDarkModeContext);
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
@@ -87,6 +91,16 @@ export default function MainSection() {
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
+  const setSearchedAndSortSettings = () => {
+    const searchInSessionStorage = sessionStorage.getItem("search");
+    const sortInSessionStorage = sessionStorage.getItem("sort");
+    if (searchInSessionStorage) {
+      setSearched(JSON.parse(searchInSessionStorage));
+    }
+    if (sortInSessionStorage) {
+      setSortBy(JSON.parse(sortInSessionStorage));
+    }
+  };
   const checkLocalStorage = () => {
     const localStorageItem = localStorage.getItem(`countryList`);
     if (localStorageItem) {
@@ -108,21 +122,28 @@ export default function MainSection() {
     }
   };
   useEffect(() => {
+    setSearchedAndSortSettings();
     if (!checkLocalStorage()) {
       fetchData();
     } else return;
   }, []);
-
+  useEffect(() => {
+    rememberSearchAndSortSettings(searched, sortBy);
+  }, [searched, sortBy]);
   useEffect(() => {
     sortCountries();
   }, [sortBy]);
 
   return (
-    <MainSectionContainer dark={darkMode}>
-      <SearchBar setSearched={setSearched} searchedCountry={searched} />
-      <SearchByContainer dark={darkMode}>
+    <MainSectionContainer dark={isDarkMode}>
+      <SearchBar
+        searched={searched}
+        setSearched={setSearched}
+        searchedCountry={searched}
+      />
+      <SearchByContainer dark={isDarkMode}>
         <p>Sort:</p>
-        <select onChange={(e) => changeSortBy(e)}>
+        <select value={sortBy} onChange={(e) => changeSortBy(e)}>
           {sortByList.map((item, index) => {
             return <option key={index}>{item.name}</option>;
           })}
@@ -149,5 +170,5 @@ export default function MainSection() {
   );
 }
 MainSection.propTypes = {
-  darkMode: PropTypes.bool,
+  isDarkMode: PropTypes.bool,
 };
