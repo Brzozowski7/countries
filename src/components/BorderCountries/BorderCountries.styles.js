@@ -10,8 +10,6 @@ export const BorderCountriesContainer = styled.div`
   gap: 1rem;
 `;
 export const BorderCountryLink = styled(Link)`
-  width: 4rem;
-  width: 8rem;
   background-color: ${(props) =>
     props.dark ? pallete.DarkBlue : pallete.White};
   color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};

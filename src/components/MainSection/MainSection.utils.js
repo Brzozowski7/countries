@@ -1,10 +1,10 @@
 export function find(obj, keyword) {
   let found = false;
-  const iterate = (obj) => {
+  const goDeeper = (obj) => {
     Object.keys(obj).forEach((key) => {
       const value = obj[key];
       if (typeof value === "object" && value !== null) {
-        iterate(value);
+        goDeeper(value);
       } else {
         if (
           ("" + value.toString().toLowerCase()).indexOf(keyword.toLowerCase()) >
@@ -16,7 +16,7 @@ export function find(obj, keyword) {
     });
   };
 
-  iterate(obj);
+  goDeeper(obj);
   return found;
 }
 export const shuffleCountries = (array) => {

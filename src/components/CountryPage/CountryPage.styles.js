@@ -38,7 +38,6 @@ export const CountryInformationContainer = styled.div`
   gap: 3rem;
   padding: 5rem 0;
   @media screen and (max-width: 960px) {
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;

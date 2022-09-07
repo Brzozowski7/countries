@@ -11,7 +11,7 @@ import {
   NameAndDetails,
   Details,
 } from "./CountryPage.styles";
-import { addCommas } from "./CountryPage.utils";
+import { addCommas } from "../../misc/utils";
 import { isDarkModeContext } from "../../App/App";
 import BorderCountries from "../BorderCountries";
 
@@ -84,11 +84,15 @@ export default function CountryPage() {
                   </p>
                   <p>
                     <b>Currencies:</b>{" "}
-                    {Object.keys(country[0].currencies).join(", ")}
+                    {country[0].currencies
+                      ? Object.keys(country[0].currencies).join(", ")
+                      : ""}
                   </p>
                   <p>
                     <b>Languages:</b>{" "}
-                    {Object.values(country[0].languages).join(", ")}
+                    {country[0].languages
+                      ? Object.values(country[0].languages).join(", ")
+                      : ""}
                   </p>
                   <p>
                     <b>Traffic:</b> {country[0].car.side}-handed

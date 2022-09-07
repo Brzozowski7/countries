@@ -5,7 +5,7 @@ import {
   FlagContainer,
   InformationContainer,
 } from "./CountryCard.styles";
-import { addCommas } from "./CountryCard.utils";
+import { addCommas } from "../../misc/utils";
 import { isDarkModeContext } from "../../App/App";
 export default function CountryCard({
   name,

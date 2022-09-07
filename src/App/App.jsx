@@ -1,6 +1,5 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { setThemeInStorage } from "./App.utils";
 import Navbar from "../components/Navbar";
 import MainSection from "../components/MainSection/MainSection";
 import CountryPage from "../components/CountryPage";

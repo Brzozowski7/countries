@@ -44,7 +44,6 @@ export const InformationContainer = styled.div`
         : pallete.DarkBlueTransparent};
   h2 {
     height: 5rem;
-    display: flex;
     align-items: center;
   }
 `;
