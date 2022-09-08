@@ -11,10 +11,10 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
-    <isDarkModeContext.Provider value={isDarkMode}>
+    <isDarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
       <Router>
         <Wrapper dark={isDarkMode}>
-          <Navbar setIsDarkMode={setIsDarkMode} />
+          <Navbar />
           <Routes>
             <Route path="/" element={<MainSection />}></Route>
             <Route

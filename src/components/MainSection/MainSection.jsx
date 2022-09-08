@@ -17,7 +17,7 @@ import CountryCard from "../CountryCard";
 import { sortByList, sortBySwitchList } from "../../misc/sortByList";
 
 export default function MainSection() {
-  const isDarkMode = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(isDarkModeContext);
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);

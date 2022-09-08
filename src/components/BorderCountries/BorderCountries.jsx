@@ -5,8 +5,9 @@ import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
+
 export default function BorderCountries({ borderCountries }) {
-  const isDarkMode = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(isDarkModeContext);
   const [fullNames, setFullNames] = useState([]);
   const fetchBorderCountriesNames = async () => {
     const response = await fetch(
@@ -38,6 +39,5 @@ export default function BorderCountries({ borderCountries }) {
   );
 }
 BorderCountries.propTypes = {
-  borderCountries: PropTypes.array,
-  isDarkMode: PropTypes.bool,
+  borderCountries: PropTypes.arrayOf(PropTypes.string),
 };

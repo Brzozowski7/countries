@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
 import { isDarkModeContext } from "../../App/App";
 export default function SearchBar({ setSearched, searched }) {
-  const isDarkMode = useContext(isDarkModeContext);
+  const {isDarkMode} = useContext(isDarkModeContext);
 
   const handleChange = (e) => {
     setSearched(e.target.value);
@@ -38,5 +38,4 @@ export default function SearchBar({ setSearched, searched }) {
 SearchBar.propTypes = {
   searched: PropTypes.string,
   setSearched: PropTypes.func.isRequired,
-  isDarkMode: PropTypes.bool,
 };

@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { NavbarContainer, ModeContainer } from "./Navbar.styles";
 import { isDarkModeContext } from "../../App/App";
-export default function Navbar({ setIsDarkMode }) {
-  const isDarkMode = useContext(isDarkModeContext);
+export default function Navbar() {
+  const { isDarkMode, setIsDarkMode } = useContext(isDarkModeContext);
+
   const handleClick = () => {
     setIsDarkMode((prev) => !prev);
   };
@@ -19,8 +20,3 @@ export default function Navbar({ setIsDarkMode }) {
     </NavbarContainer>
   );
 }
-
-Navbar.propTypes = {
-  setIsDarkMode: PropTypes.func.isRequired,
-  isDarkMode: PropTypes.bool,
-};

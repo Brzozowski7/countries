@@ -16,7 +16,7 @@ import { isDarkModeContext } from "../../App/App";
 import BorderCountries from "../BorderCountries";
 
 export default function CountryPage() {
-  const isDarkMode = useContext(isDarkModeContext);
+  const {isDarkMode} = useContext(isDarkModeContext);
   const [country, setCountry] = useState();
   const params = useParams();
   const checkLocalStorage = () => {

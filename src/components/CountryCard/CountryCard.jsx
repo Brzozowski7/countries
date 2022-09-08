@@ -14,7 +14,7 @@ export default function CountryCard({
   capital,
   flag,
 }) {
-  const isDarkMode = useContext(isDarkModeContext);
+  const {isDarkMode} = useContext(isDarkModeContext);
   return (
     <CountryContainer dark={isDarkMode}>
       <FlagContainer>
@@ -41,5 +41,4 @@ CountryCard.propTypes = {
   population: PropTypes.number,
   capital: PropTypes.string,
   flag: PropTypes.string,
-  isDarkMode: PropTypes.bool,
 };
