@@ -12,7 +12,7 @@ export default function Navbar() {
       <h1>Where In The World?</h1>
       <ModeContainer dark={isDarkMode} onClick={toggleIsDarkMode}>
         {isDarkMode ? (
-          <FontAwesomeIcon icon={faSun} /> + "Light Mode"
+          <FontAwesomeIcon icon={faSun} />
         ) : (
           <FontAwesomeIcon icon={faMoon} />
         )}
