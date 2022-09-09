@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { pallete } from "../../misc/pallete";
+import { pallete } from "../../../misc/pallete";
 
 export const BorderCountriesContainer = styled.div`
   display: flex;

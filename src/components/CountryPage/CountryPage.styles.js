@@ -4,11 +4,9 @@ import { pallete } from "../../misc/pallete";
 
 export const CountryPageWrapper = styled.main`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: left;
-  width: 100%;
   padding: 2rem 5rem;
   background-color: ${(props) =>
     props.dark ? pallete.VeryDarkBlue : pallete.VeryLightGray};
@@ -43,26 +41,6 @@ export const CountryInformationContainer = styled.div`
     align-items: flex-start;
     gap: 1rem;
     padding: 0;
-  }
-`;
-export const NameAndDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-export const Details = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 3rem;
-  h1 {
-    padding: 1rem 0;
-  }
-  p {
-    padding: 0.5rem 0;
-  }
-  @media screen and (max-width: 960px) {
-    flex-direction: column;
-    align-items: flex-start;
   }
 `;
 

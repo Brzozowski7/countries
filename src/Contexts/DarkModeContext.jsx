@@ -15,11 +15,11 @@ export const DarkModeContextProvider = ({ children }) => {
 
   useEffect(() => {
     const check = localStorage.getItem("isDarkMode");
-    if (check === "false") {
-      setIsDarkMode(false);
-    } else if (check === "true") {
+    if (check === "true") {
       setIsDarkMode(true);
-    } else return;
+    } else {
+      setIsDarkMode(false);
+    }
   }, []);
 
   useEffect(() => {

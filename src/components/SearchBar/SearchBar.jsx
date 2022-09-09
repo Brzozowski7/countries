@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
 import {
   SearchBarContainer,
   StyledInput,
   XIconContainer,
 } from "./SearchBar.styles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
-import { DarkModeContext } from "../../Contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 
 export default function SearchBar({ setSearched, searched }) {
   const { isDarkMode } = useContext(DarkModeContext);

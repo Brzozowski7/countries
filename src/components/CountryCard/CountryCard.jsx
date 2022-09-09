@@ -5,8 +5,7 @@ import {
   FlagContainer,
   InformationContainer,
 } from "./CountryCard.styles";
-import addCommas from "../../utils/addCommas";
-import { DarkModeContext } from "../../Contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext";
 export default function CountryCard({
   name,
   region,
@@ -23,7 +22,7 @@ export default function CountryCard({
       <InformationContainer>
         <h2>{name}</h2>
         <p>
-          <b>Population:</b> {addCommas(population)}
+          <b>Population:</b> {new Intl.NumberFormat("en-EN").format(population)}
         </p>
         <p>
           <b>Region:</b> {region}

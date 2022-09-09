@@ -1,26 +1,36 @@
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { DarkModeContext } from "../../Contexts/DarkModeContext";
+import { toast } from "react-toastify";
+import { DarkModeContext } from "../../../contexts/DarkModeContext";
 import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
+import ToastComponent from "../../ToastComponent/ToastComponent";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
   const [fullNames, setFullNames] = useState([]);
   const fetchBorderCountriesNames = async () => {
-    const response = await fetch(
-      `https://restcountries.com/v2/alpha?codes=${borderCountries}`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      setFullNames(data);
+    try {
+      const response = await fetch(
+        `https://restcountries.com/v2/alpha?codes=${borderCountries}`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setFullNames(data);
+      } else {
+        throw response.status;
+      }
+    } catch (err) {
+      toast(
+        `Unexpected problem occurred(${err}). Cannot fetch border countries. Please try again later.`
+      );
     }
   };
   useEffect(() => {
     fetchBorderCountriesNames();
-  }, [fullNames]);
+  }, [borderCountries]);
   return (
     <BorderCountriesContainer>
       <b>Border countries:</b>
@@ -35,6 +45,7 @@ export default function BorderCountries({ borderCountries }) {
           </BorderCountryLink>
         );
       })}
+      <ToastComponent />
     </BorderCountriesContainer>
   );
 }
