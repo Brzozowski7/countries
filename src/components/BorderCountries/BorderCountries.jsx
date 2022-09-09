@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { isDarkModeContext } from "../../App/App";
+import { DarkModeContext } from "../../Contexts/DarkModeContext";
 import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
 
 export default function BorderCountries({ borderCountries }) {
-  const { isDarkMode } = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(DarkModeContext);
   const [fullNames, setFullNames] = useState([]);
   const fetchBorderCountriesNames = async () => {
     const response = await fetch(

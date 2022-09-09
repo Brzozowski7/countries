@@ -11,11 +11,11 @@ import {
   Details,
 } from "./CountryPage.styles";
 import addCommas from "../../utils/addCommas";
-import { isDarkModeContext } from "../../App/App";
+import { DarkModeContext } from "../../Contexts/DarkModeContext";
 import BorderCountries from "../BorderCountries";
 
 export default function CountryPage() {
-  const { isDarkMode } = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(DarkModeContext);
   const [country, setCountry] = useState();
   const params = useParams();
   const checkLocalStorage = () => {

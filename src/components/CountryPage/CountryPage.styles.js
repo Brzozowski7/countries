@@ -12,6 +12,7 @@ export const CountryPageWrapper = styled.main`
   padding: 2rem 5rem;
   background-color: ${(props) =>
     props.dark ? pallete.VeryDarkBlue : pallete.VeryLightGray};
+  color: ${(props) => (props.dark ? pallete.White : pallete.DarkBlue)};
   @media screen and (max-width: 960px) {
     gap: 2rem;
     padding: 2rem;

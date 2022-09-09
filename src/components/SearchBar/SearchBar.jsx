@@ -7,14 +7,15 @@ import {
 } from "./SearchBar.styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faX } from "@fortawesome/free-solid-svg-icons";
-import { isDarkModeContext } from "../../App/App";
+import { DarkModeContext } from "../../Contexts/DarkModeContext";
+
 export default function SearchBar({ setSearched, searched }) {
-  const {isDarkMode} = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(DarkModeContext);
 
   const handleChange = (e) => {
     setSearched(e.target.value);
   };
-  const removeSearched = () => {
+  const clearSearchBar = () => {
     setSearched("");
   };
   return (
@@ -29,7 +30,7 @@ export default function SearchBar({ setSearched, searched }) {
       />
       {searched && (
         <XIconContainer>
-          <FontAwesomeIcon onClick={removeSearched} icon={faX} />
+          <FontAwesomeIcon onClick={clearSearchBar} icon={faX} />
         </XIconContainer>
       )}
     </SearchBarContainer>

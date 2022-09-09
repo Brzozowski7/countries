@@ -1,19 +1,15 @@
-import { useState, createContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import MainSection from "../components/MainSection/MainSection";
 import CountryPage from "../components/CountryPage";
 import { Wrapper } from "./App.styles";
-
-export const isDarkModeContext = createContext();
+import { DarkModeContextProvider } from "../Contexts/DarkModeContext";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
-    <isDarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+    <DarkModeContextProvider>
       <Router>
-        <Wrapper dark={isDarkMode}>
+        <Wrapper>
           <Navbar />
           <Routes>
             <Route path="/" element={<MainSection />}></Route>
@@ -24,7 +20,7 @@ function App() {
           </Routes>
         </Wrapper>
       </Router>
-    </isDarkModeContext.Provider>
+    </DarkModeContextProvider>
   );
 }
 

@@ -11,12 +11,12 @@ import {
   shuffleCountries,
   rememberSearchAndSortSettings,
 } from "./MainSection.utils";
-import { isDarkModeContext } from "../../App/App";
 import CountryCard from "../CountryCard";
+import { DarkModeContext } from "../../Contexts/DarkModeContext";
 import { sortByList, sortBySwitchList } from "../../misc/sortByList";
 
 export default function MainSection() {
-  const { isDarkMode } = useContext(isDarkModeContext);
+  const { isDarkMode } = useContext(DarkModeContext);
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
