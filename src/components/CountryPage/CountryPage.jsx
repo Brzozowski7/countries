@@ -13,7 +13,8 @@ import { useFetchSpecificCountry } from "./useFetchSpecificCountry";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import BorderCountries from "./BorderCountries";
-import ToastComponent from "../ToastComponent/ToastComponent";
+import ToastComponent from "../ToastComponent";
+import Spinner from "../Spinner";
 
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
@@ -21,7 +22,9 @@ export default function CountryPage() {
 
   const params = useParams();
 
-  const { details, error } = useFetchSpecificCountry(params.countryCode);
+  const { details, loading, error } = useFetchSpecificCountry(
+    params.countryCode
+  );
 
   useEffect(() => {
     setCountry(details);
@@ -39,21 +42,25 @@ export default function CountryPage() {
         <FontAwesomeIcon icon={faArrowLeft} />
         Back
       </StyledLink>
-      {country && (
-        <>
-          <CountryInformationContainer>
-            <FlagContainer>
-              <img
-                src={country[0].flags.png}
-                alt={`${country[0].name.common} flag`}
-              />
-            </FlagContainer>
-            <CountryPageDetails countryInformation={country[0]} />
-          </CountryInformationContainer>
-          {country[0].borders && (
-            <BorderCountries borderCountries={country[0].borders} />
-          )}
-        </>
+      {loading ? (
+        <Spinner />
+      ) : (
+        country && (
+          <>
+            <CountryInformationContainer>
+              <FlagContainer>
+                <img
+                  src={country[0].flags.png}
+                  alt={`${country[0].name.common} flag`}
+                />
+              </FlagContainer>
+              <CountryPageDetails countryInformation={country[0]} />
+            </CountryInformationContainer>
+            {country[0].borders && (
+              <BorderCountries borderCountries={country[0].borders} />
+            )}
+          </>
+        )
       )}
       <ToastComponent />
     </CountryPageWrapper>

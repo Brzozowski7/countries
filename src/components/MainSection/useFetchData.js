@@ -3,9 +3,11 @@ import { shuffleCountries } from "./MainSection.utils";
 
 export const useFetchData = () => {
   const [countries, setCountries] = useState();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
@@ -19,6 +21,8 @@ export const useFetchData = () => {
       }
     } catch (err) {
       setError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -26,6 +30,6 @@ export const useFetchData = () => {
     fetchData();
   }, []);
 
-  const value = { countries, error };
+  const value = { countries, loading, error };
   return value;
 };

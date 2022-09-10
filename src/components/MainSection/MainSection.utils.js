@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { sortByList } from "../../misc/sortByList";
 
 export function find(obj, keyword) {

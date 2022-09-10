@@ -7,13 +7,15 @@ import {
   BorderCountryLink,
 } from "./BorderCountries.styles";
 import { useFetchBorderCountriesNames } from "./useFetchBorderCountriesNames";
-import ToastComponent from "../../ToastComponent/ToastComponent";
+import ToastComponent from "../../ToastComponent";
+import Spinner from "../../Spinner";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
   const [fullNames, setFullNames] = useState([]);
 
-  const { names, error } = useFetchBorderCountriesNames(borderCountries);
+  const { names, loading, error } =
+    useFetchBorderCountriesNames(borderCountries);
 
   useEffect(() => {
     setFullNames(names);
@@ -27,17 +29,21 @@ export default function BorderCountries({ borderCountries }) {
   return (
     <BorderCountriesContainer>
       <b>Border countries:</b>
-      {fullNames?.map((item) => {
-        return (
-          <BorderCountryLink
-            dark={isDarkMode}
-            to={`/country/${item.alpha3Code}`}
-            key={item.alpha3Code}
-          >
-            {item.name}
-          </BorderCountryLink>
-        );
-      })}
+      {loading ? (
+        <Spinner />
+      ) : (
+        fullNames?.map((item) => {
+          return (
+            <BorderCountryLink
+              dark={isDarkMode}
+              to={`/country/${item.alpha3Code}`}
+              key={item.alpha3Code}
+            >
+              {item.name}
+            </BorderCountryLink>
+          );
+        })
+      )}
       <ToastComponent />
     </BorderCountriesContainer>
   );

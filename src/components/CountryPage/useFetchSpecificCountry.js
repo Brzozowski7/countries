@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 
 export const useFetchSpecificCountry = (countryCode) => {
   const [details, setDetails] = useState();
+  const [loading, setLoading] = useState();
   const [error, setError] = useState();
 
   const fetchSpecificCountry = async () => {
+    setLoading(true);
     try {
       const response = await fetch(
         `https://restcountries.com/v3.1/alpha/${countryCode}`
@@ -17,6 +19,8 @@ export const useFetchSpecificCountry = (countryCode) => {
       }
     } catch (err) {
       setError(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,6 +28,6 @@ export const useFetchSpecificCountry = (countryCode) => {
     fetchSpecificCountry(countryCode);
   }, [countryCode]);
 
-  const value = { details, error };
+  const value = { details, loading, error };
   return value;
 };

@@ -14,7 +14,8 @@ import {
 } from "./MainSection.utils";
 import { useFetchData } from "./useFetchData";
 import CountryCard from "../CountryCard";
-import ToastComponent from "../ToastComponent/ToastComponent";
+import ToastComponent from "../ToastComponent";
+import Spinner from "../Spinner";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import { sortByList } from "../../misc/sortByList";
 
@@ -42,7 +43,7 @@ export default function MainSection() {
     rememberSearchAndSortSettings(searched, sortBy);
   }, [searched, sortBy]);
 
-  const { countries, error } = useFetchData();
+  const { countries, loading, error } = useFetchData();
 
   useEffect(() => {
     setSearchedAndSortSettings();
@@ -75,21 +76,27 @@ export default function MainSection() {
         </select>
       </SearchByContainer>
       <FoundCountriesContainer>
-        {countriesArr
-          ?.filter((country) => (searched ? find(country, searched) : country))
-          .map((item) => {
-            return (
-              <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
-                <CountryCard
-                  flag={item.flags.png}
-                  name={item.name}
-                  population={item.population}
-                  region={item.region}
-                  capital={item.capital}
-                />
-              </StyledLink>
-            );
-          })}
+        {loading ? (
+          <Spinner />
+        ) : (
+          countriesArr
+            ?.filter((country) =>
+              searched ? find(country, searched) : country
+            )
+            .map((item) => {
+              return (
+                <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
+                  <CountryCard
+                    flag={item.flags.png}
+                    name={item.name}
+                    population={item.population}
+                    region={item.region}
+                    capital={item.capital}
+                  />
+                </StyledLink>
+              );
+            })
+        )}
       </FoundCountriesContainer>
       <ToastComponent />
     </MainSectionContainer>
