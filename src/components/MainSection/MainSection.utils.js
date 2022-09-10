@@ -35,79 +35,35 @@ export const rememberSearchAndSortSettings = (search, sort) => {
   sessionStorage.setItem("sort", JSON.stringify(sort));
 };
 
-export const useFetchData = () => {
-  const [countries, setCountries] = useState();
-  const [error, setError] = useState();
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
+export const sortCountries = (arr, sorter) => {
+  switch (sorter) {
+    case sortByList.Alphabetically:
+      return [...arr].sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+    case sortByList.AlphabeticallyReversed:
+      return [...arr].sort((a, b) => (a.name < b.name ? 1 : a.name > b.name ? -1 : 0));
+    case sortByList.ByPopulationDecreasing:
+      return [...arr].sort((a, b) =>
+        a.population < b.population ? 1 : a.population > b.population ? -1 : 0
       );
-      if (response.ok) {
-        const data = await response.json();
-        shuffleCountries(data);
-        setCountries(data);
-      } else {
-        throw response.status;
-      }
-    } catch (err) {
-      setError(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const value = { countries, error };
-  return value;
-};
-
-export const useSortCountries = (arr, sorter) => {
-  const sortCountries = () => {
-    switch (sorter) {
-      case sortByList.Alphabetically:
-        arr.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
-        break;
-      case sortByList.AlphabeticallyReversed:
-        arr.sort((a, b) => (a.name < b.name ? 1 : a.name > b.name ? -1 : 0));
-        break;
-      case sortByList.ByPopulationDecreasing:
-        arr.sort((a, b) =>
-          a.population < b.population ? 1 : a.population > b.population ? -1 : 0
-        );
-        break;
-      case sortByList.ByPopulationIncreasing:
-        arr.sort((a, b) =>
-          a.population < b.population ? -1 : a.population > b.population ? 1 : 0
-        );
-        break;
-      case sortByList.ByRegions:
-        arr.sort((a, b) =>
-          a.region < b.region ? -1 : a.region > b.region ? 1 : 0
-        );
-        break;
-      case sortByList.ByAreaIncreasing:
-        arr
-          .filter((item) => item.area)
-          .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0));
-        //removing countries on which we don't have area information
-        break;
-      case sortByList.ByAreaDecreasing:
-        arr
-          .filter((item) => item.area)
-          .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0));
-        //removing countries on which we don't have area information
-        break;
-      default:
-        return;
-    }
-  };
-
-  useEffect(() => {
-    sortCountries(sorter);
-  }, [arr, sorter]);
-
-  return arr;
+    case sortByList.ByPopulationIncreasing:
+      return [...arr].sort((a, b) =>
+        a.population < b.population ? -1 : a.population > b.population ? 1 : 0
+      );
+    case sortByList.ByRegions:
+      return [...arr].sort((a, b) =>
+        a.region < b.region ? -1 : a.region > b.region ? 1 : 0
+      );
+    case sortByList.ByAreaIncreasing:
+      return [...arr]
+        .filter((item) => item.area)
+        .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0));
+      //removing countries on which we don't have area information
+    case sortByList.ByAreaDecreasing:
+      return [...arr]
+        .filter((item) => item.area)
+        .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0));
+      //removing countries on which we don't have area information
+    default:
+      return;
+  }
 };

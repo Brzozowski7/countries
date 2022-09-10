@@ -6,7 +6,7 @@ import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
-import { useFetchBorderCountriesNames } from "./BorderCountries.utils";
+import { useFetchBorderCountriesNames } from "./useFetchBorderCountriesNames";
 import ToastComponent from "../../ToastComponent/ToastComponent";
 
 export default function BorderCountries({ borderCountries }) {

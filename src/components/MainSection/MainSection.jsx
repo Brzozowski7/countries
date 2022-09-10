@@ -10,9 +10,9 @@ import {
 import {
   find,
   rememberSearchAndSortSettings,
-  useFetchData,
-  useSortCountries,
+  sortCountries,
 } from "./MainSection.utils";
+import { useFetchData } from "./useFetchData";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent/ToastComponent";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
@@ -52,12 +52,11 @@ export default function MainSection() {
         `Unexpected problem occurred(${error}). Cannot fetch countries. Please try again later.`
       );
     }
-  }, [countries,error]);
-
-  const sortedArr = useSortCountries(countriesArr, sortBy);
+  }, [countries, error]);
 
   useEffect(() => {
-    setCountriesArr([...sortedArr]);
+    const sortedArr = sortCountries(countriesArr, sortBy);
+    setCountriesArr(sortedArr);
   }, [sortBy]);
 
   return (

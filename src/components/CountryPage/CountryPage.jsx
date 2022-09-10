@@ -9,7 +9,7 @@ import {
   CountryInformationContainer,
   FlagContainer,
 } from "./CountryPage.styles";
-import { useFetchSpecificCountry } from "./CountryPage.utils";
+import { useFetchSpecificCountry } from "./useFetchSpecificCountry";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import BorderCountries from "./BorderCountries";
@@ -25,7 +25,7 @@ export default function CountryPage() {
 
   useEffect(() => {
     setCountry(details);
-    
+
     if (error) {
       toast(
         `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
