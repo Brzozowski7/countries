@@ -7,12 +7,8 @@ import {
   FoundCountriesContainer,
   StyledLink,
 } from "./MainSection.styles";
-import {
-  find,
-  rememberSearchAndSortSettings,
-  sortCountries,
-} from "./MainSection.utils";
-import { useFetchData } from "./useFetchData";
+import { find, sortCountries } from "./MainSection.utils";
+import useFetchData from "./useFetchData";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent";
 import Spinner from "../Spinner";
@@ -28,10 +24,6 @@ export default function MainSection() {
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
-
-  useEffect(() => {
-    rememberSearchAndSortSettings(searched, sortBy);
-  }, [searched, sortBy]);
 
   const { countries, loading, error } = useFetchData();
 

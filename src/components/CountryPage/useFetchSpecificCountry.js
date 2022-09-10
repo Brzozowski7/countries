@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFetchSpecificCountry = (countryCode) => {
+const useFetchSpecificCountry = (countryCode) => {
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
@@ -31,3 +31,4 @@ export const useFetchSpecificCountry = (countryCode) => {
   const value = { details, loading, error };
   return value;
 };
+export default useFetchSpecificCountry

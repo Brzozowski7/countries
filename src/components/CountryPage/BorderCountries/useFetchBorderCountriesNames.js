@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFetchBorderCountriesNames = (borderCountries) => {
+const useFetchBorderCountriesNames = (borderCountries) => {
   const [names, setNames] = useState();
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
@@ -31,3 +31,4 @@ export const useFetchBorderCountriesNames = (borderCountries) => {
   const value = { names, loading, error };
   return value;
 };
+export default useFetchBorderCountriesNames;

@@ -9,7 +9,7 @@ import {
   CountryInformationContainer,
   FlagContainer,
 } from "./CountryPage.styles";
-import { useFetchSpecificCountry } from "./useFetchSpecificCountry";
+import useFetchSpecificCountry from "./useFetchSpecificCountry";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import BorderCountries from "./BorderCountries";

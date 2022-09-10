@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { shuffleCountries } from "./MainSection.utils";
 
-export const useFetchData = () => {
+const useFetchData = () => {
   const [countries, setCountries] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
@@ -33,3 +33,4 @@ export const useFetchData = () => {
   const value = { countries, loading, error };
   return value;
 };
+export default useFetchData;

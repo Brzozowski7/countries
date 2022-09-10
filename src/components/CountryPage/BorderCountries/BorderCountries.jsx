@@ -6,7 +6,7 @@ import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
-import { useFetchBorderCountriesNames } from "./useFetchBorderCountriesNames";
+import useFetchBorderCountriesNames from "./useFetchBorderCountriesNames";
 import ToastComponent from "../../ToastComponent";
 import Spinner from "../../Spinner";
 
