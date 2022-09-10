@@ -38,19 +38,21 @@ export default function MainSection() {
     }
   };
 
-  const { data, error } = useFetchData();
-
-  useEffect(() => {
-    setSearchedAndSortSettings();
-    setCountriesArr(data);
-    if (error) {
-      toast(`${error}`);
-    }
-  }, [data]);
-
   useEffect(() => {
     rememberSearchAndSortSettings(searched, sortBy);
   }, [searched, sortBy]);
+
+  const { countries, error } = useFetchData();
+
+  useEffect(() => {
+    setSearchedAndSortSettings();
+    setCountriesArr(countries);
+    if (error) {
+      toast(
+        `Unexpected problem occurred(${error}). Cannot fetch countries. Please try again later.`
+      );
+    }
+  }, [countries,error]);
 
   const sortedArr = useSortCountries(countriesArr, sortBy);
 

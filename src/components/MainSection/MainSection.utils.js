@@ -36,7 +36,7 @@ export const rememberSearchAndSortSettings = (search, sort) => {
 };
 
 export const useFetchData = () => {
-  const [data, setData] = useState();
+  const [countries, setCountries] = useState();
   const [error, setError] = useState();
 
   const fetchData = async () => {
@@ -45,9 +45,9 @@ export const useFetchData = () => {
         `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
       );
       if (response.ok) {
-        const countries = await response.json();
-        shuffleCountries(countries);
-        setData(countries);
+        const data = await response.json();
+        shuffleCountries(data);
+        setCountries(data);
       } else {
         throw response.status;
       }
@@ -60,7 +60,7 @@ export const useFetchData = () => {
     fetchData();
   }, []);
 
-  const value = { data, error };
+  const value = { countries, error };
   return value;
 };
 

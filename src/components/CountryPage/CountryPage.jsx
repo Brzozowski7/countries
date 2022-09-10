@@ -9,6 +9,7 @@ import {
   CountryInformationContainer,
   FlagContainer,
 } from "./CountryPage.styles";
+import { useFetchSpecificCountry } from "./CountryPage.utils";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import BorderCountries from "./BorderCountries";
@@ -16,29 +17,21 @@ import ToastComponent from "../ToastComponent/ToastComponent";
 
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
-  const [country, setCountry] = useState();
+  const [country, setCountry] = useState("");
+
   const params = useParams();
 
-  const fetchSpecificCountry = async () => {
-    try {
-      const response = await fetch(
-        `https://restcountries.com/v3.1/alpha/${params.countryCode}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setCountry(data);
-      } else {
-        throw response.status;
-      }
-    } catch (err) {
+  const { details, error } = useFetchSpecificCountry(params.countryCode);
+
+  useEffect(() => {
+    setCountry(details);
+    
+    if (error) {
       toast(
-        `Unexpected problem occurred(${err}). Cannot fetch country's details. Please try again later.`
+        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
       );
     }
-  };
-  useEffect(() => {
-    fetchSpecificCountry();
-  }, [params.countryCode]);
+  }, [details, error]);
 
   return (
     <CountryPageWrapper dark={isDarkMode}>

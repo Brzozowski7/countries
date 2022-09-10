@@ -6,31 +6,24 @@ import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
+import { useFetchBorderCountriesNames } from "./BorderCountries.utils";
 import ToastComponent from "../../ToastComponent/ToastComponent";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
   const [fullNames, setFullNames] = useState([]);
-  const fetchBorderCountriesNames = async () => {
-    try {
-      const response = await fetch(
-        `https://restcountries.com/v2/alpha?codes=${borderCountries}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setFullNames(data);
-      } else {
-        throw response.status;
-      }
-    } catch (err) {
+
+  const { names, error } = useFetchBorderCountriesNames(borderCountries);
+
+  useEffect(() => {
+    setFullNames(names);
+    if (error) {
       toast(
-        `Unexpected problem occurred(${err}). Cannot fetch border countries. Please try again later.`
+        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
       );
     }
-  };
-  useEffect(() => {
-    fetchBorderCountriesNames();
-  }, [borderCountries]);
+  }, [names, error]);
+
   return (
     <BorderCountriesContainer>
       <b>Border countries:</b>
