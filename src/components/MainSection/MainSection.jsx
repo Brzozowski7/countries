@@ -9,8 +9,8 @@ import {
 } from "./MainSection.styles";
 import {
   find,
-  shuffleCountries,
   rememberSearchAndSortSettings,
+  useFetchData,
 } from "./MainSection.utils";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent/ToastComponent";
@@ -102,32 +102,21 @@ export default function MainSection() {
       setSortBy(JSON.parse(sortInSessionStorage));
     }
   };
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        shuffleCountries(data);
-        setCountriesArr(data);
-      } else {
-        throw response.status;
-      }
-    } catch (err) {
-      toast(
-        `Unexpected problem occurred (${err}). Cannot fetch countries. Please try again later.`
-      );
-    }
-  };
+
+  const { data, loading, error } = useFetchData();
 
   useEffect(() => {
     setSearchedAndSortSettings();
-    fetchData();
-  }, []);
+    setCountriesArr(data);
+    if (error) {
+      toast(`${error}`);
+    }
+  }, [data]);
+
   useEffect(() => {
     rememberSearchAndSortSettings(searched, sortBy);
   }, [searched, sortBy]);
+  
   useEffect(() => {
     sortCountries();
   }, [sortBy]);
@@ -149,7 +138,7 @@ export default function MainSection() {
       </SearchByContainer>
       <FoundCountriesContainer>
         {countriesArr
-          .filter((country) => (searched ? find(country, searched) : country))
+          ?.filter((country) => (searched ? find(country, searched) : country))
           .map((item) => {
             return (
               <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
