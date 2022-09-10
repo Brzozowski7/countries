@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { sortByList } from "../../misc/sortByList";
 
 export function find(obj, keyword) {
   let found = false;
@@ -36,25 +37,22 @@ export const rememberSearchAndSortSettings = (search, sort) => {
 
 export const useFetchData = () => {
   const [data, setData] = useState();
-  const [loading, setLoading] = useState();
   const [error, setError] = useState();
 
   const fetchData = async () => {
-    setLoading(true);
     try {
       const response = await fetch(
         `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
       );
       if (response.ok) {
         const countries = await response.json();
+        shuffleCountries(countries);
         setData(countries);
       } else {
         throw response.status;
       }
     } catch (err) {
       setError(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -62,6 +60,54 @@ export const useFetchData = () => {
     fetchData();
   }, []);
 
-  const value = { data, loading, error };
+  const value = { data, error };
   return value;
+};
+
+export const useSortCountries = (arr, sorter) => {
+  const sortCountries = () => {
+    switch (sorter) {
+      case sortByList.Alphabetically:
+        arr.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+        break;
+      case sortByList.AlphabeticallyReversed:
+        arr.sort((a, b) => (a.name < b.name ? 1 : a.name > b.name ? -1 : 0));
+        break;
+      case sortByList.ByPopulationDecreasing:
+        arr.sort((a, b) =>
+          a.population < b.population ? 1 : a.population > b.population ? -1 : 0
+        );
+        break;
+      case sortByList.ByPopulationIncreasing:
+        arr.sort((a, b) =>
+          a.population < b.population ? -1 : a.population > b.population ? 1 : 0
+        );
+        break;
+      case sortByList.ByRegions:
+        arr.sort((a, b) =>
+          a.region < b.region ? -1 : a.region > b.region ? 1 : 0
+        );
+        break;
+      case sortByList.ByAreaIncreasing:
+        arr
+          .filter((item) => item.area)
+          .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0));
+        //removing countries on which we don't have area information
+        break;
+      case sortByList.ByAreaDecreasing:
+        arr
+          .filter((item) => item.area)
+          .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0));
+        //removing countries on which we don't have area information
+        break;
+      default:
+        return;
+    }
+  };
+
+  useEffect(() => {
+    sortCountries(sorter);
+  }, [arr, sorter]);
+
+  return arr;
 };

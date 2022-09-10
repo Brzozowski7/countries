@@ -11,6 +11,7 @@ import {
   find,
   rememberSearchAndSortSettings,
   useFetchData,
+  useSortCountries,
 } from "./MainSection.utils";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent/ToastComponent";
@@ -22,72 +23,6 @@ export default function MainSection() {
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
-
-  const sortCountries = () => {
-    switch (sortBy) {
-      case sortByList.Alphabetically:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-          )
-        );
-        break;
-      case sortByList.AlphabeticallyReversed:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.name < b.name ? 1 : a.name > b.name ? -1 : 0
-          )
-        );
-        break;
-      case sortByList.ByPopulationDecreasing:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.population < b.population
-              ? 1
-              : a.population > b.population
-              ? -1
-              : 0
-          )
-        );
-        break;
-      case sortByList.ByPopulationIncreasing:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.population < b.population
-              ? -1
-              : a.population > b.population
-              ? 1
-              : 0
-          )
-        );
-        break;
-      case sortByList.ByRegions:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.region < b.region ? -1 : a.region > b.region ? 1 : 0
-          )
-        );
-        break;
-      case sortByList.ByAreaIncreasing:
-        setCountriesArr((prev) =>
-          prev
-            .filter((item) => item.area)
-            .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0))
-        );
-        //removing countries on which we don't have area information
-        break;
-      case sortByList.ByAreaDecreasing:
-        setCountriesArr((prev) =>
-          prev
-            .filter((item) => item.area)
-            .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0))
-        );
-        //removing countries on which we don't have area information
-        break;
-      default:
-        return;
-    }
-  };
 
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
@@ -103,7 +38,7 @@ export default function MainSection() {
     }
   };
 
-  const { data, loading, error } = useFetchData();
+  const { data, error } = useFetchData();
 
   useEffect(() => {
     setSearchedAndSortSettings();
@@ -116,9 +51,11 @@ export default function MainSection() {
   useEffect(() => {
     rememberSearchAndSortSettings(searched, sortBy);
   }, [searched, sortBy]);
-  
+
+  const sortedArr = useSortCountries(countriesArr, sortBy);
+
   useEffect(() => {
-    sortCountries();
+    setCountriesArr([...sortedArr]);
   }, [sortBy]);
 
   return (
