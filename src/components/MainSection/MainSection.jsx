@@ -28,16 +28,6 @@ export default function MainSection() {
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
-  const setSearchedAndSortSettings = () => {
-    const searchInSessionStorage = sessionStorage.getItem("search");
-    const sortInSessionStorage = sessionStorage.getItem("sort");
-    if (searchInSessionStorage) {
-      setSearched(JSON.parse(searchInSessionStorage));
-    }
-    if (sortInSessionStorage) {
-      setSortBy(JSON.parse(sortInSessionStorage));
-    }
-  };
 
   useEffect(() => {
     rememberSearchAndSortSettings(searched, sortBy);
@@ -46,7 +36,6 @@ export default function MainSection() {
   const { countries, loading, error } = useFetchData();
 
   useEffect(() => {
-    setSearchedAndSortSettings();
     setCountriesArr(countries);
     if (error) {
       toast(

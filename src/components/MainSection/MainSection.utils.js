@@ -29,10 +29,7 @@ export const shuffleCountries = (array) => {
     array[j] = temp;
   }
 };
-export const rememberSearchAndSortSettings = (search, sort) => {
-  sessionStorage.setItem("search", JSON.stringify(search));
-  sessionStorage.setItem("sort", JSON.stringify(sort));
-};
+
 
 export const sortCountries = (arr, sorter) => {
   switch (sorter) {
