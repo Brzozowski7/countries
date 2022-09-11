@@ -21,8 +21,8 @@ export default function MainSection() {
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
-  const [savedSearched, setSavedSearched] = useSessionStorage("search");
-  const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy");
+  const [savedSearched, setSavedSearched] = useSessionStorage("search", "");
+  const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy", "");
 
   const { countries, loading, error } = useFetchData();
 
