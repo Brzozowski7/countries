@@ -9,6 +9,7 @@ import {
 } from "./MainSection.styles";
 import { find, sortCountries } from "./MainSection.utils";
 import useFetchData from "./useFetchData";
+import useSessionStorage from "./useSessionStorage";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent";
 import Spinner from "../Spinner";
@@ -20,12 +21,19 @@ export default function MainSection() {
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
+  const [savedSearched, setSavedSearched] = useSessionStorage("search");
+  const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy");
+
+  const { countries, loading, error } = useFetchData();
 
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
 
-  const { countries, loading, error } = useFetchData();
+  useEffect(() => {
+    setSortBy(savedSortBy);
+    setSearched(savedSearched);
+  }, []);
 
   useEffect(() => {
     setCountriesArr(countries);
@@ -37,9 +45,16 @@ export default function MainSection() {
   }, [countries, error]);
 
   useEffect(() => {
-    const sortedArr = sortCountries(countriesArr, sortBy);
-    setCountriesArr(sortedArr);
+    if (countriesArr) {
+      const sortedArr = sortCountries(countriesArr, sortBy);
+      setCountriesArr(sortedArr);
+    }
+    setSavedSortBy(sortBy);
   }, [sortBy]);
+
+  useEffect(() => {
+    setSavedSearched(searched);
+  }, [searched]);
 
   return (
     <MainSectionContainer dark={isDarkMode}>
