@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import { DarkModeContext } from "../../../contexts/DarkModeContext/DarkModeContext";
 import {

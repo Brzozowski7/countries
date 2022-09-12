@@ -1,8 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { toast } from "react-toastify";
 import {
   CountryPageWrapper,
   StyledLink,
@@ -19,9 +18,7 @@ import Spinner from "../Spinner";
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
   const params = useParams();
-  const { details, loading } = useFetchSpecificCountry(
-    params.countryCode
-  );
+  const { details, loading } = useFetchSpecificCountry(params.countryCode);
 
   return (
     <CountryPageWrapper dark={isDarkMode}>

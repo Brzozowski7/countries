@@ -30,13 +30,16 @@ export const shuffleCountries = (array) => {
   }
 };
 
-
 export const sortCountries = (arr, sorter) => {
   switch (sorter) {
     case sortByList.Alphabetically:
-      return [...arr].sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+      return [...arr].sort((a, b) =>
+        a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+      );
     case sortByList.AlphabeticallyReversed:
-      return [...arr].sort((a, b) => (a.name < b.name ? 1 : a.name > b.name ? -1 : 0));
+      return [...arr].sort((a, b) =>
+        a.name < b.name ? 1 : a.name > b.name ? -1 : 0
+      );
     case sortByList.ByPopulationDecreasing:
       return [...arr].sort((a, b) =>
         a.population < b.population ? 1 : a.population > b.population ? -1 : 0
@@ -53,12 +56,12 @@ export const sortCountries = (arr, sorter) => {
       return [...arr]
         .filter((item) => item.area)
         .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0));
-      //removing countries on which we don't have area information
+    //removing countries on which we don't have area information
     case sortByList.ByAreaDecreasing:
       return [...arr]
         .filter((item) => item.area)
         .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0));
-      //removing countries on which we don't have area information
+    //removing countries on which we don't have area information
     default:
       return;
   }

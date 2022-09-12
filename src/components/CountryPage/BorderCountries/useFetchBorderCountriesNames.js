@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 const useFetchBorderCountriesNames = (borderCountries) => {
   const [names, setNames] = useState();
   const [loading, setLoading] = useState();
-  const [error, setError] = useState();
 
   const fetchBorderCountriesNames = async () => {
     setLoading(true);
@@ -19,7 +18,9 @@ const useFetchBorderCountriesNames = (borderCountries) => {
         throw response.status;
       }
     } catch (err) {
-      setError(err);
+      toast(
+        `Unexpected problem occurred(${err}). Cannot fetch border countries. Please try again later.`
+      );
     } finally {
       setLoading(false);
     }
@@ -28,15 +29,8 @@ const useFetchBorderCountriesNames = (borderCountries) => {
   useEffect(() => {
     fetchBorderCountriesNames();
   }, [borderCountries]);
-  useEffect(() => {
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch countries. Please try again later.`
-      );
-    }
-  }, [error]);
 
-  const value = { names, loading, error };
+  const value = { names, loading };
   return value;
 };
 export default useFetchBorderCountriesNames;

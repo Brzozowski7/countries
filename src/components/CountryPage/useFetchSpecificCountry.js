@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 const useFetchSpecificCountry = (countryCode) => {
   const [details, setDetails] = useState();
   const [loading, setLoading] = useState();
-  const [error, setError] = useState();
 
   const fetchSpecificCountry = async () => {
     setLoading(true);
@@ -19,7 +18,9 @@ const useFetchSpecificCountry = (countryCode) => {
         throw response.status;
       }
     } catch (err) {
-      setError(err);
+      toast(
+        `Unexpected problem occurred(${err}). Cannot fetch country's details. Please try again later.`
+      );
     } finally {
       setLoading(false);
     }
@@ -29,15 +30,7 @@ const useFetchSpecificCountry = (countryCode) => {
     fetchSpecificCountry(countryCode);
   }, [countryCode]);
 
-  useEffect(() => {
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
-      );
-    }
-  }, [error]);
-
-  const value = { details, loading, error };
+  const value = { details, loading };
   return value;
 };
 export default useFetchSpecificCountry;

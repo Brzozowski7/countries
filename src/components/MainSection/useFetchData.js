@@ -5,7 +5,6 @@ import { shuffleCountries } from "./MainSection.utils";
 const useFetchData = () => {
   const [countries, setCountries] = useState();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
 
   const fetchData = async () => {
     setLoading(true);
@@ -21,7 +20,9 @@ const useFetchData = () => {
         throw response.status;
       }
     } catch (err) {
-      setError(err);
+      toast(
+        `Unexpected problem occurred(${err}). Cannot fetch country's details. Please try again later.`
+      );
     } finally {
       setLoading(false);
     }
@@ -31,15 +32,7 @@ const useFetchData = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
-      );
-    }
-  }, [error]);
-
-  const value = { countries, loading, error };
+  const value = { countries, loading };
   return value;
 };
 export default useFetchData;
