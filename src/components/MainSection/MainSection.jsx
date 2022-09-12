@@ -46,8 +46,7 @@ export default function MainSection() {
 
   useEffect(() => {
     if (countriesArr) {
-      const sortedArr = sortCountries(countriesArr, sortBy);
-      setCountriesArr(sortedArr);
+      setCountriesArr(sortCountries(countriesArr, sortBy));
     }
     setSavedSortBy(sortBy);
   }, [sortBy]);

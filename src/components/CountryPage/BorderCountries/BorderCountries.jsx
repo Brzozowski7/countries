@@ -12,19 +12,16 @@ import Spinner from "../../Spinner";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
-  const [fullNames, setFullNames] = useState([]);
-
   const { names, loading, error } =
     useFetchBorderCountriesNames(borderCountries);
 
   useEffect(() => {
-    setFullNames(names);
     if (error) {
       toast(
         `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
       );
     }
-  }, [names, error]);
+  }, [error]);
 
   return (
     <BorderCountriesContainer>
@@ -32,7 +29,7 @@ export default function BorderCountries({ borderCountries }) {
       {loading ? (
         <Spinner />
       ) : (
-        fullNames?.map((item) => {
+        names?.map((item) => {
           return (
             <BorderCountryLink
               dark={isDarkMode}

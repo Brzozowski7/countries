@@ -18,23 +18,18 @@ import Spinner from "../Spinner";
 
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
-  const [country, setCountry] = useState("");
-
   const params = useParams();
-
   const { details, loading, error } = useFetchSpecificCountry(
     params.countryCode
   );
 
   useEffect(() => {
-    setCountry(details);
-
     if (error) {
       toast(
         `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
       );
     }
-  }, [details, error]);
+  }, [error]);
 
   return (
     <CountryPageWrapper dark={isDarkMode}>
@@ -45,19 +40,19 @@ export default function CountryPage() {
       {loading ? (
         <Spinner />
       ) : (
-        country && (
+        details && (
           <>
             <CountryInformationContainer>
               <FlagContainer>
                 <img
-                  src={country[0].flags.png}
-                  alt={`${country[0].name.common} flag`}
+                  src={details[0].flags.png}
+                  alt={`${details[0].name.common} flag`}
                 />
               </FlagContainer>
-              <CountryPageDetails countryInformation={country[0]} />
+              <CountryPageDetails countryInformation={details[0]} />
             </CountryInformationContainer>
-            {country[0].borders && (
-              <BorderCountries borderCountries={country[0].borders} />
+            {details[0].borders && (
+              <BorderCountries borderCountries={details[0].borders} />
             )}
           </>
         )
