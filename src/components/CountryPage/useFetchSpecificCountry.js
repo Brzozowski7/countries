@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const useFetchSpecificCountry = (countryCode) => {
   const [details, setDetails] = useState();
@@ -28,7 +29,15 @@ const useFetchSpecificCountry = (countryCode) => {
     fetchSpecificCountry(countryCode);
   }, [countryCode]);
 
+  useEffect(() => {
+    if (error) {
+      toast(
+        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
+      );
+    }
+  }, [error]);
+
   const value = { details, loading, error };
   return value;
 };
-export default useFetchSpecificCountry
+export default useFetchSpecificCountry;

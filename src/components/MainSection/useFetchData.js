@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { shuffleCountries } from "./MainSection.utils";
 
 const useFetchData = () => {
@@ -29,6 +30,14 @@ const useFetchData = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      toast(
+        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
+      );
+    }
+  }, [error]);
 
   const value = { countries, loading, error };
   return value;

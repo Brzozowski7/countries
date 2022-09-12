@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const useFetchBorderCountriesNames = (borderCountries) => {
   const [names, setNames] = useState();
@@ -27,6 +28,13 @@ const useFetchBorderCountriesNames = (borderCountries) => {
   useEffect(() => {
     fetchBorderCountriesNames();
   }, [borderCountries]);
+  useEffect(() => {
+    if (error) {
+      toast(
+        `Unexpected problem occurred(${error}). Cannot fetch countries. Please try again later.`
+      );
+    }
+  }, [error]);
 
   const value = { names, loading, error };
   return value;

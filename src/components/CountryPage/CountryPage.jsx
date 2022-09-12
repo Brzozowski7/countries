@@ -19,17 +19,9 @@ import Spinner from "../Spinner";
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
   const params = useParams();
-  const { details, loading, error } = useFetchSpecificCountry(
+  const { details, loading } = useFetchSpecificCountry(
     params.countryCode
   );
-
-  useEffect(() => {
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
-      );
-    }
-  }, [error]);
 
   return (
     <CountryPageWrapper dark={isDarkMode}>

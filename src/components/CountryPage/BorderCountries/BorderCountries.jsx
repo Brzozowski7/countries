@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { toast } from "react-toastify";
 import { DarkModeContext } from "../../../contexts/DarkModeContext/DarkModeContext";
 import {
   BorderCountriesContainer,
@@ -12,16 +11,7 @@ import Spinner from "../../Spinner";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
-  const { names, loading, error } =
-    useFetchBorderCountriesNames(borderCountries);
-
-  useEffect(() => {
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch country's details. Please try again later.`
-      );
-    }
-  }, [error]);
+  const { names, loading } = useFetchBorderCountriesNames(borderCountries);
 
   return (
     <BorderCountriesContainer>

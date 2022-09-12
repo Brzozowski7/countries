@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { toast } from "react-toastify";
 import SearchBar from "../SearchBar";
 import {
   MainSectionContainer,
@@ -24,7 +23,7 @@ export default function MainSection() {
   const [savedSearched, setSavedSearched] = useSessionStorage("search", "");
   const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy", "");
 
-  const { countries, loading, error } = useFetchData();
+  const { countries, loading } = useFetchData();
 
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
@@ -37,12 +36,7 @@ export default function MainSection() {
 
   useEffect(() => {
     setCountriesArr(countries);
-    if (error) {
-      toast(
-        `Unexpected problem occurred(${error}). Cannot fetch countries. Please try again later.`
-      );
-    }
-  }, [countries, error]);
+  }, [countries]);
 
   useEffect(() => {
     if (countriesArr) {
