@@ -1,4 +1,5 @@
 import { useEffect, createContext, useState } from "react";
+import useLocalStorage from "./useLocalStorage";
 
 export const DarkModeContext = createContext({
   isDarkMode: false,
@@ -7,6 +8,10 @@ export const DarkModeContext = createContext({
 
 export const DarkModeContextProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [darkModeLocalStorage, setDarkModeLocalStorage] = useLocalStorage(
+    "isDarkMode",
+    isDarkMode
+  );
   const toggleIsDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
@@ -17,16 +22,11 @@ export const DarkModeContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const check = localStorage.getItem("isDarkMode");
-    if (check === "true") {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
-    }
+    setIsDarkMode(darkModeLocalStorage);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("isDarkMode", isDarkMode);
+    setDarkModeLocalStorage(isDarkMode);
   }, [isDarkMode]);
 
   return (

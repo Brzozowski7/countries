@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import { NameAndDetails, Details } from "./CountryPageDetails.styles";
 
 export default function CountryPageDetails({ countryInformation }) {
-
   return (
     <NameAndDetails>
       <h1>{countryInformation.name.common}</h1>

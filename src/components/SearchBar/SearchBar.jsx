@@ -7,7 +7,7 @@ import {
   StyledInput,
   XIconContainer,
 } from "./SearchBar.styles";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 
 export default function SearchBar({ setSearched, searched }) {
   const { isDarkMode } = useContext(DarkModeContext);

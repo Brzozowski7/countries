@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import MainSection from "../components/MainSection/MainSection";
 import CountryPage from "../components/CountryPage";
 import { Wrapper } from "./App.styles";
-import { DarkModeContext } from "../contexts/DarkModeContext";
+import { DarkModeContext } from "../contexts/DarkModeContext/DarkModeContext";
 
 function App() {
   const { isDarkMode } = useContext(DarkModeContext);

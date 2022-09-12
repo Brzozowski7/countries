@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { toast } from "react-toastify";
 import SearchBar from "../SearchBar";
 import {
   MainSectionContainer,
@@ -7,14 +6,13 @@ import {
   FoundCountriesContainer,
   StyledLink,
 } from "./MainSection.styles";
-import {
-  find,
-  shuffleCountries,
-  rememberSearchAndSortSettings,
-} from "./MainSection.utils";
+import { find, sortCountries } from "./MainSection.utils";
+import useFetchData from "./useFetchData";
+import useSessionStorage from "./useSessionStorage";
 import CountryCard from "../CountryCard";
-import ToastComponent from "../ToastComponent/ToastComponent";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import ToastComponent from "../ToastComponent";
+import Spinner from "../Spinner";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 import { sortByList } from "../../misc/sortByList";
 
 export default function MainSection() {
@@ -22,115 +20,34 @@ export default function MainSection() {
   const [sortBy, setSortBy] = useState("");
   const [searched, setSearched] = useState("");
   const [countriesArr, setCountriesArr] = useState([]);
+  const [savedSearched, setSavedSearched] = useSessionStorage("search", "");
+  const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy", "");
 
-  const sortCountries = () => {
-    switch (sortBy) {
-      case sortByList.Alphabetically:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-          )
-        );
-        break;
-      case sortByList.AlphabeticallyReversed:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.name < b.name ? 1 : a.name > b.name ? -1 : 0
-          )
-        );
-        break;
-      case sortByList.ByPopulationDecreasing:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.population < b.population
-              ? 1
-              : a.population > b.population
-              ? -1
-              : 0
-          )
-        );
-        break;
-      case sortByList.ByPopulationIncreasing:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.population < b.population
-              ? -1
-              : a.population > b.population
-              ? 1
-              : 0
-          )
-        );
-        break;
-      case sortByList.ByRegions:
-        setCountriesArr((prev) =>
-          [...prev].sort((a, b) =>
-            a.region < b.region ? -1 : a.region > b.region ? 1 : 0
-          )
-        );
-        break;
-      case sortByList.ByAreaIncreasing:
-        setCountriesArr((prev) =>
-          prev
-            .filter((item) => item.area)
-            .sort((a, b) => (a.area < b.area ? -1 : a.area > b.area ? 1 : 0))
-        );
-        //removing countries on which we don't have area information
-        break;
-      case sortByList.ByAreaDecreasing:
-        setCountriesArr((prev) =>
-          prev
-            .filter((item) => item.area)
-            .sort((a, b) => (a.area < b.area ? 1 : a.area > b.area ? -1 : 0))
-        );
-        //removing countries on which we don't have area information
-        break;
-      default:
-        return;
-    }
-  };
+  const { countries, loading } = useFetchData();
 
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
   };
-  const setSearchedAndSortSettings = () => {
-    const searchInSessionStorage = sessionStorage.getItem("search");
-    const sortInSessionStorage = sessionStorage.getItem("sort");
-    if (searchInSessionStorage) {
-      setSearched(JSON.parse(searchInSessionStorage));
-    }
-    if (sortInSessionStorage) {
-      setSortBy(JSON.parse(sortInSessionStorage));
-    }
-  };
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        shuffleCountries(data);
-        setCountriesArr(data);
-      } else {
-        throw response.status;
-      }
-    } catch (err) {
-      toast(
-        `Unexpected problem occurred (${err}). Cannot fetch countries. Please try again later.`
-      );
-    }
-  };
 
   useEffect(() => {
-    setSearchedAndSortSettings();
-    fetchData();
+    setSortBy(savedSortBy);
+    setSearched(savedSearched);
   }, []);
+
   useEffect(() => {
-    rememberSearchAndSortSettings(searched, sortBy);
-  }, [searched, sortBy]);
+    setCountriesArr(countries);
+  }, [countries]);
+
   useEffect(() => {
-    sortCountries();
+    if (countriesArr) {
+      setCountriesArr(sortCountries(countriesArr, sortBy));
+    }
+    setSavedSortBy(sortBy);
   }, [sortBy]);
+
+  useEffect(() => {
+    setSavedSearched(searched);
+  }, [searched]);
 
   return (
     <MainSectionContainer dark={isDarkMode}>
@@ -148,21 +65,27 @@ export default function MainSection() {
         </select>
       </SearchByContainer>
       <FoundCountriesContainer>
-        {countriesArr
-          .filter((country) => (searched ? find(country, searched) : country))
-          .map((item) => {
-            return (
-              <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
-                <CountryCard
-                  flag={item.flags.png}
-                  name={item.name}
-                  population={item.population}
-                  region={item.region}
-                  capital={item.capital}
-                />
-              </StyledLink>
-            );
-          })}
+        {loading ? (
+          <Spinner />
+        ) : (
+          countriesArr
+            ?.filter((country) =>
+              searched ? find(country, searched) : country
+            )
+            .map((item) => {
+              return (
+                <StyledLink key={item.name} to={"/country/" + item.alpha3Code}>
+                  <CountryCard
+                    flag={item.flags.png}
+                    name={item.name}
+                    population={item.population}
+                    region={item.region}
+                    capital={item.capital}
+                  />
+                </StyledLink>
+              );
+            })
+        )}
       </FoundCountriesContainer>
       <ToastComponent />
     </MainSectionContainer>

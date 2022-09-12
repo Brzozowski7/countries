@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { NavbarContainer, ModeContainer } from "./Navbar.styles";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 
 export default function Navbar() {
   const { isDarkMode, toggleIsDarkMode } = useContext(DarkModeContext);
