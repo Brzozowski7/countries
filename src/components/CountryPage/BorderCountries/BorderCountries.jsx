@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
-import { DarkModeContext } from "../../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../../contexts/DarkModeContext/DarkModeContext";
 import {
   BorderCountriesContainer,
   BorderCountryLink,

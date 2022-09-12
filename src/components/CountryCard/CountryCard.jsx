@@ -5,7 +5,7 @@ import {
   FlagContainer,
   InformationContainer,
 } from "./CountryCard.styles";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 export default function CountryCard({
   name,
   region,

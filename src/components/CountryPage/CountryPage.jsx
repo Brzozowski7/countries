@@ -11,7 +11,7 @@ import {
 } from "./CountryPage.styles";
 import useFetchSpecificCountry from "./useFetchSpecificCountry";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 import BorderCountries from "./BorderCountries";
 import ToastComponent from "../ToastComponent";
 import Spinner from "../Spinner";

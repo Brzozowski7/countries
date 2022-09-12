@@ -13,7 +13,7 @@ import useSessionStorage from "./useSessionStorage";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent";
 import Spinner from "../Spinner";
-import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 import { sortByList } from "../../misc/sortByList";
 
 export default function MainSection() {
