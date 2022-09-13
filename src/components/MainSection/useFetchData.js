@@ -21,7 +21,7 @@ const useFetchData = () => {
       }
     } catch (err) {
       toast(
-        `Unexpected problem occurred(${err}). Cannot fetch country's details. Please try again later.`
+        `Unexpected problem occurred(${err}). Cannot fetch countries. Please try again later.`
       );
     } finally {
       setLoading(false);
