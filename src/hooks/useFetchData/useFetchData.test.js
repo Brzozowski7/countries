@@ -31,11 +31,29 @@ describe("useFetchData", () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useFetchData("lorem")
     );
-    
+
     await waitForNextUpdate();
 
     expect(result.current).toMatchObject({
       countries: fakeCountries,
+      loading: false,
+    });
+  });
+  test("should not return any data", async () => {
+    jest.spyOn(global, "fetch").mockImplementation(() => {
+      return Promise.resolve({
+        json: () => Promise.reject("oopss"),
+      });
+    });
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useFetchData("lorem")
+    );
+
+    await waitForNextUpdate();
+
+    expect(result.current).toMatchObject({
+      countries: undefined,
       loading: false,
     });
   });

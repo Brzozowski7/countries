@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
-
 const useFetchData = (url) => {
   const [countries, setCountries] = useState();
   const [loading, setLoading] = useState(false);
@@ -10,13 +9,10 @@ const useFetchData = (url) => {
     setLoading(true);
     try {
       const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        setCountries(data);
-      } else {
-        throw response.status;
-      }
+      const data = await response.json();
+      setCountries(data);
     } catch (err) {
+
       toast(
         `Unexpected problem occurred(${err}). Cannot fetch data. Please try again later.`
       );
