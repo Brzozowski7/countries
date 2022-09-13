@@ -6,8 +6,8 @@ import {
   FoundCountriesContainer,
   StyledLink,
 } from "./MainSection.styles";
-import { find, sortCountries } from "./MainSection.utils";
-import useFetchData from "./useFetchData";
+import { find, shuffleCountries, sortCountries } from "./MainSection.utils";
+import useFetchData from "../../hooks/useFetchData/useFetchData";
 import useSessionStorage from "./useSessionStorage";
 import CountryCard from "../CountryCard";
 import ToastComponent from "../ToastComponent";
@@ -23,7 +23,9 @@ export default function MainSection() {
   const [savedSearched, setSavedSearched] = useSessionStorage("search", "");
   const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy", "");
 
-  const { countries, loading } = useFetchData();
+  const { countries, loading } = useFetchData(
+    `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
+  );
 
   const changeSortBy = (e) => {
     setSortBy(e.target.value);
@@ -35,6 +37,7 @@ export default function MainSection() {
   }, []);
 
   useEffect(() => {
+    shuffleCountries(countries);
     setCountriesArr(countries);
   }, [countries]);
 

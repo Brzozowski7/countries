@@ -5,13 +5,15 @@ import {
   BorderCountriesContainer,
   BorderCountryLink,
 } from "./BorderCountries.styles";
-import useFetchBorderCountriesNames from "./useFetchBorderCountriesNames";
+import useFetchData from "../../../hooks/useFetchData/useFetchData";
 import ToastComponent from "../../ToastComponent";
 import Spinner from "../../Spinner";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
-  const { names, loading } = useFetchBorderCountriesNames(borderCountries);
+  const { countries, loading } = useFetchData(
+    `https://restcountries.com/v2/alpha?codes=${borderCountries}`
+  );
 
   return (
     <BorderCountriesContainer>
@@ -19,7 +21,7 @@ export default function BorderCountries({ borderCountries }) {
       {loading ? (
         <Spinner />
       ) : (
-        names?.map((item) => {
+        countries?.map((item) => {
           return (
             <BorderCountryLink
               dark={isDarkMode}
