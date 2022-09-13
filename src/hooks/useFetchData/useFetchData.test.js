@@ -23,7 +23,7 @@ afterAll(() => {
 describe("useFetchData", () => {
   test("should return data after fetch", async () => {
     jest.spyOn(global, "fetch").mockImplementation(() => {
-      Promise.resolve({
+      return Promise.resolve({
         json: () => Promise.resolve(fakeCountries),
       });
     });
