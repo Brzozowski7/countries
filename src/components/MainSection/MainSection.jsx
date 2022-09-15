@@ -23,7 +23,7 @@ export default function MainSection() {
   const [savedSearched, setSavedSearched] = useSessionStorage("search", "");
   const [savedSortBy, setSavedSortBy] = useSessionStorage("sortBy", "");
 
-  const { countries, loading } = useFetchData(
+  const { data, loading } = useFetchData(
     `https://restcountries.com/v2/all?fields=alpha3Code,name,capital,population,borders,area,car,flags,latlng,languages,region,subregion,timezones,currencies`
   );
 
@@ -37,9 +37,9 @@ export default function MainSection() {
   }, []);
 
   useEffect(() => {
-    shuffleCountries(countries);
-    setCountriesArr(countries);
-  }, [countries]);
+    shuffleCountries(data);
+    setCountriesArr(data);
+  }, [data]);
 
   useEffect(() => {
     if (countriesArr) {

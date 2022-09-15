@@ -11,7 +11,7 @@ import Spinner from "../../Spinner";
 
 export default function BorderCountries({ borderCountries }) {
   const { isDarkMode } = useContext(DarkModeContext);
-  const { countries, loading } = useFetchData(
+  const { data, loading } = useFetchData(
     `https://restcountries.com/v2/alpha?codes=${borderCountries}`
   );
 
@@ -21,7 +21,7 @@ export default function BorderCountries({ borderCountries }) {
       {loading ? (
         <Spinner />
       ) : (
-        countries?.map((item) => {
+        data?.map((item) => {
           return (
             <BorderCountryLink
               dark={isDarkMode}

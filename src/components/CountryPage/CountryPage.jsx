@@ -18,7 +18,7 @@ import Spinner from "../Spinner";
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
   const params = useParams();
-  const { countries, loading } = useFetchData(
+  const { data, loading } = useFetchData(
     `https://restcountries.com/v3.1/alpha/${params.countryCode}`
   );
 
@@ -31,19 +31,19 @@ export default function CountryPage() {
       {loading ? (
         <Spinner />
       ) : (
-        countries && (
+        data && (
           <>
             <CountryInformationContainer>
               <FlagContainer>
                 <img
-                  src={countries[0].flags.png}
-                  alt={`${countries[0].name.common} flag`}
+                  src={data[0].flags.png}
+                  alt={`${data[0].name.common} flag`}
                 />
               </FlagContainer>
-              <CountryPageDetails countryInformation={countries[0]} />
+              <CountryPageDetails countryInformation={data[0]} />
             </CountryInformationContainer>
-            {countries[0].borders && (
-              <BorderCountries borderCountries={countries[0].borders} />
+            {data[0].borders && (
+              <BorderCountries borderCountries={data[0].borders} />
             )}
           </>
         )

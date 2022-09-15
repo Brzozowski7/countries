@@ -22,20 +22,21 @@ afterAll(() => {
 
 describe("useFetchData", () => {
   test("should return data after fetch", async () => {
+    //given
     jest.spyOn(global, "fetch").mockImplementation(() => {
       return Promise.resolve({
         json: () => Promise.resolve(fakeCountries),
       });
     });
-
+    //when
     const { result, waitForNextUpdate } = renderHook(() =>
       useFetchData("lorem")
     );
 
     await waitForNextUpdate();
-
+    //then
     expect(result.current).toMatchObject({
-      countries: fakeCountries,
+      data: fakeCountries,
       loading: false,
     });
   });
@@ -53,7 +54,7 @@ describe("useFetchData", () => {
     await waitForNextUpdate();
 
     expect(result.current).toMatchObject({
-      countries: undefined,
+      data: undefined,
       loading: false,
     });
   });

@@ -73,25 +73,18 @@ describe("Searching for strings function (ignoring case sensivity)", () => {
     cioc: "COL",
     independent: true,
   };
-  test("checking if object contains(South American Nations)", () => {
-    expect(find(input, "South American Nations")).toBeTruthy();
-  });
-  test("checking if object contains(Español)", () => {
-    expect(find(input, "Español")).toBeTruthy();
-  });
-  test("checking if object contains(Poland)", () => {
-    expect(find(input, "Poland")).toBeFalsy();
-  });
-  test("checking if object contains(BOGotá)", () => {
-    expect(find(input, "BOGotá")).toBeTruthy();
-  });
-  test("checking if object contains(コロンビア)", () => {
-    expect(find(input, "コロンビア")).toBeTruthy();
-  });
-  test("checking if object contains(Wqw21Q)", () => {
-    expect(find(input, "Wqw21Q")).toBeFalsy();
-  });
-  test("checking if object contains(BOGooatá)", () => {
-    expect(find(input, "BOGooatá")).toBeFalsy();
-  });
+  test.each([
+    { wordToLookFor: "South American Nations", expected: true },
+    { wordToLookFor: "Español", expected: true },
+    { wordToLookFor: "Poland", expected: false },
+    { wordToLookFor: "BOGotá", expected: true },
+    { wordToLookFor: "コロンビア", expected: true },
+    { wordToLookFor: "Wqw21Q", expected: false },
+    { wordToLookFor: "BOGooatá", expected: false },
+  ])(
+    "checking if wordToLookFor exists in input and returns expected",
+    ({ wordToLookFor, expected }) => {
+      expect(find(input, wordToLookFor)).toBe(expected);
+    }
+  );
 });
