@@ -8,7 +8,7 @@ import {
   CountryInformationContainer,
   FlagContainer,
 } from "./CountryPage.styles";
-import useFetchSpecificCountry from "./useFetchSpecificCountry";
+import useFetchData from "../../hooks/useFetchData/useFetchData";
 import CountryPageDetails from "./CountryPageDetails/CountryPageDetails";
 import { DarkModeContext } from "../../contexts/DarkModeContext/DarkModeContext";
 import BorderCountries from "./BorderCountries";
@@ -18,7 +18,9 @@ import Spinner from "../Spinner";
 export default function CountryPage() {
   const { isDarkMode } = useContext(DarkModeContext);
   const params = useParams();
-  const { details, loading } = useFetchSpecificCountry(params.countryCode);
+  const { data, loading } = useFetchData(
+    `https://restcountries.com/v3.1/alpha/${params.countryCode}`
+  );
 
   return (
     <CountryPageWrapper dark={isDarkMode}>
@@ -29,19 +31,19 @@ export default function CountryPage() {
       {loading ? (
         <Spinner />
       ) : (
-        details && (
+        data && (
           <>
             <CountryInformationContainer>
               <FlagContainer>
                 <img
-                  src={details[0].flags.png}
-                  alt={`${details[0].name.common} flag`}
+                  src={data[0].flags.png}
+                  alt={`${data[0].name.common} flag`}
                 />
               </FlagContainer>
-              <CountryPageDetails countryInformation={details[0]} />
+              <CountryPageDetails countryInformation={data[0]} />
             </CountryInformationContainer>
-            {details[0].borders && (
-              <BorderCountries borderCountries={details[0].borders} />
+            {data[0].borders && (
+              <BorderCountries borderCountries={data[0].borders} />
             )}
           </>
         )
